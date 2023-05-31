@@ -38,8 +38,10 @@
   <link rel="stylesheet" href="views/bower_components/bootstrap/dist/css/bootstrap.min.css">
 
   <!-- Font Awesome -->
-  <!-- <link rel="stylesheet" href="views/bower_components/font-awesome/css/font-awesome.min.css"> -->
+ 
   <script src="https://kit.fontawesome.com/a3e5ca3374.js" crossorigin="anonymous"></script>
+
+   <!-- <link rel="stylesheet" href="views/bower_components/font-awesome/css/font-awesome.min.css"> -->
 
   <!-- Ionicons -->
   <link rel="stylesheet" href="views/bower_components/Ionicons/css/ionicons.min.css">

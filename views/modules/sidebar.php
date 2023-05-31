@@ -61,7 +61,7 @@
 				<?php if($_SESSION['perfil']=='administrador'){?>
 					<li>
 						<a href="proveedores">
-							<i class="fa-solid fa-truck-field"></i>
+							<i class="fas fa-truck"></i>
 							<span>Proveedores</span>
 						</a>
 					</li>

@@ -7,7 +7,7 @@
 
 
         <span class="logo-lg">
-            <h1 style="margin:10px 0px; font-size:28px; color:#f0ad4e;  font-weight: bold">FERROAGRO</h1>
+            <h1 style="margin:10px 0px; font-size:28px; color:#f0ad4e;  font-weight: bold">FERROAGROG</h1>
             <!-- <img src="views/img/plantilla/logo.png" class="img-responsive" style="padding:10px 0" alt=""> -->
         </span> 
     </a>
