@@ -31,6 +31,7 @@ $('.tablaClientes').DataTable({
 /* almacenar cliente */
 
 $('.formulario_guardar_cliente').submit(function(e){
+
     e.preventDefault();
     const nombre = $('#nombre').val();
     const cedula = $('#cedula').val();

@@ -312,7 +312,7 @@
                             </div>
                             <div id="alerta"></div>
                             <div class="box-footer">
-                                    <button type="submit" class="btn btn-primary pull-right">guardar Cambios</button>
+                                    <button type="submit" class="btn btn-primary pull-right btn_crear_venta">guardar Cambios</button>
                                     <input type="hidden" id="id_venta_editar" value="<?php echo $venta['id'] ?>">
                             </div>
                         </form>
@@ -365,7 +365,13 @@
                                 <input type="text" class="form-control input-lg" name="nombre" id="nombre" placeholder="ingresa Nombre del cliente">
                             </div>
                         </div> 
-                     
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <input type="text" class="form-control input-lg" name="cedula" id="cedula" placeholder="ingresa No de cédula del cliente">
+                            </div>
+                        </div> 
+                        
                       
                         <div class="form-group">
                             <div class="input-group">
@@ -379,7 +385,13 @@
                                 <input type="text" class="form-control input-lg" name="direccion" id="direccion" placeholder="ingresa el direccion del cliente">
                             </div>
                         </div> 
-                       
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                <input type="text" class="form-control input-lg" name="correo" id="correo" placeholder="ingresa el correo del cliente">
+                            </div>
+                        </div> 
+                   
                     </div>
                 </div>
                 <div class="modal-footer">
