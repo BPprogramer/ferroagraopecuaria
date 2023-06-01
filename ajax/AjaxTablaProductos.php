@@ -44,9 +44,9 @@
                         $datoJson.= '[
                                 "'.$i.'",
                                 "'.$imagen.'",
-                          
-                                "'.$producto['descripcion'].'",
                                 "'.$producto['codigo'].'",
+                                "'.$producto['descripcion'].'",
+                                
                                 "'.$nombre_categoria.'",
                                 "'.$stock.'",
                                 "$'.number_format($producto['precio_compra'], 2, ',', '.').'",

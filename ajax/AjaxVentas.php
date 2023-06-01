@@ -30,7 +30,7 @@
 
    $ventas = new AjaxVentas();
    if(isset($_POST['create'])){
-    json_encode('desde editar');
+    
         $ventas->crearVenta();
    }
 
