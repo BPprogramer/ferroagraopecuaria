@@ -66,6 +66,15 @@
 						</a>
 					</li>
 				<?php }?>
+				<?php if($_SESSION['perfil']=='administrador' || $_SESSION['perfil']=='vendedor'){?>
+					<li>
+						<a href="cajas">
+							<i class="fas fa-cash-register"></i>
+							<span>Cajas</span>
+						</a>
+					</li>
+				<?php }?>
+				
 				
 				<li class="treeview">
 					<a href="#">

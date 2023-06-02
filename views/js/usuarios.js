@@ -137,7 +137,7 @@ if($('.usuarios').length>0){
             confirmButtonText: 'confirmar'
 
         }).then((result)=>{
-        if(result.isConfirmed){
+            if(result.isConfirmed){
                 
                 console.log(idUsuario)
                 console.log(estadoUsuario)
@@ -179,9 +179,9 @@ if($('.usuarios').length>0){
                     })
                 }
                 })
-        }else{
-                location.reload()
-        }
+            }else{
+                    location.reload()
+            }
             
         })
 

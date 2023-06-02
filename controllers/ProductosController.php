@@ -28,7 +28,7 @@
             // $imagen = $_FILES;
            $imagen = "views/img/productos/default/anonymous.png";
            $parttern_1 = '/^[0-9.]+$/';
-           $parttern_2 = '/^[-a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/';
+           $parttern_2 = '/^[-a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ \/]+$/';
 
            $id_proveedor = filter_var($id_proveedor, FILTER_VALIDATE_INT);
            
@@ -119,7 +119,7 @@
             $precio_venta = $_POST['editar_precio_venta'];
 
             $parttern_1 = '/^[0-9.]+$/';
-            $parttern_2 = '/^[-a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/';
+            $parttern_2 = '/^[-a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ \/]+$/';
 
            
             if(preg_match($parttern_2, $descripcion) &&  preg_match($parttern_1, $stock) && preg_match($parttern_1, $stock_minimo) && preg_match($parttern_1, $stock_maximo) && preg_match($parttern_1, $precio_compra) && preg_match($parttern_1, $precio_venta)){
