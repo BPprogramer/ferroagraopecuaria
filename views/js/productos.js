@@ -55,7 +55,7 @@ function mostrarInfoProducto(info_producto){
         dataType:"json",
         success:function(req){
            
-            console.log(req)
+            // console.log(req)
             $('.info_producto').append(`
                 <li class="list-group-item text-lg" style="font-size:20px">Producto : <strong>${descripcion}</strong></li>
                 <li class="list-group-item text-lg" style="font-size:20px">Proveedor: <strong>${req['nombre']}</strong></li>
@@ -124,6 +124,33 @@ $('.porcentaje_input').keyup(calcularPrecioCompra)
 $('#check_porcentaje').on('ifChanged',calcularPrecioCompra) //plugin icheck
 
 
+//calcular porcentaje de la venta al crear la venta
+
+$('#precio_venta').keyup(calcularPorcentaje);
+$('#precio_venta').change(calcularPorcentaje);
+
+function calcularPorcentaje(){
+    const precio_compra = $('#precio_compra').val()
+    const precio_venta =  $('#precio_venta').val();
+    const porcentaje = (precio_venta*100/precio_compra) - 100;
+    
+    $('.porcentaje_input').val(porcentaje)
+}
+//calcular porcentaje de la venta al crear la venta
+
+$('#editar_precio_venta').keyup(calcularPorcentajeEditar);
+$('#editar_precio_venta').change(calcularPorcentajeEditar);
+
+function calcularPorcentajeEditar(){
+    const precio_compra = $('#editar_precio_compra').val()
+    const precio_venta =  $('#editar_precio_venta').val();
+    const porcentaje = (precio_venta*100/precio_compra) - 100;
+  
+    $('.editar_porcentaje_input').val(porcentaje)
+}
+
+
+
 function calcularPrecioCompra(){
  
   
@@ -132,14 +159,19 @@ function calcularPrecioCompra(){
             const porcentaje = parseFloat($('.porcentaje_input').val());
             const precio_compra = parseFloat($('#precio_compra').val());
             const precio_venta =precio_compra + precio_compra*porcentaje/100;
-    
+           // console.log(precio_venta)
            
-            $('#precio_venta').val(precio_venta)
-            $('#precio_venta').attr("readonly", true)
+            //$('#precio_venta').val(precio_venta)
+       
+            const numero = precio_venta;
+            const redondeado = Math.round(numero / 100) *100;
+            $('#precio_venta').val(redondeado)
+      
+            //$('#precio_venta').attr("readonly", true)
         }else{
             const precio_compra = parseFloat($('#precio_compra').val());
             $('#precio_venta').val(precio_compra)
-            $('#precio_venta').attr("readonly", false)
+            //$('#precio_venta').attr("readonly", false)
         }
     
  
@@ -206,11 +238,11 @@ $('.form_agregar_producto').submit(function(e){
 
     const stock_minimo = $('#stock_minimo').val();
     const stock_maximo = $('#stock_maximo').val();
-    console.log(stock_minimo)
-    console.log(stock_maximo)
+  
 
     const precio_compra = $('#precio_compra').val();
     const precio_venta = $('#precio_venta').val();
+    
 
     const imagen = $('#imagen').prop('files')[0];
 
@@ -301,9 +333,9 @@ $(".imagen").change(function(){
 
     
     //validar que laimagen sea jpg o png
-    console.log(imagen['type'])
+  
     if(imagen['type'] != "image/jpeg" && imagen['type']!= "image/png"){
-        console.log('mirndo imagen')
+       
         $('.imagen').val("");
         Swal.fire({
             icon:'error',
@@ -355,14 +387,18 @@ function calcularPrecioVentaEditar(){
 
             const precio_compra = parseFloat($('#editar_precio_compra').val());
             const precio_venta =precio_compra + precio_compra*porcentaje/100;
-    
+       
+            const numero = precio_venta;
+
+            const redondeado = Math.round(numero / 100) *100;
+          
            
-            $('#editar_precio_venta').val(precio_venta)
-            $('#editar_precio_venta').attr("readonly", true)
+            $('#editar_precio_venta').val(redondeado)
+            //$('#editar_precio_venta').attr("readonly", true)
         }else{
             const precio_compra = parseFloat($('#editar_precio_compra').val());
             $('#editar_precio_venta').val(precio_compra)
-            $('#editar_precio_venta').attr("readonly", false)
+           // $('#editar_precio_venta').attr("readonly", false)
         }
     
  
@@ -571,10 +607,12 @@ $("#editar_imagen").change(function(){
     }
     
     //validar que laimagen sea jpg o png
-    console.log(imagen['type'])
+   // console.log(imagen['type'])
     console.log(imagen['size'])
     if(imagen['type'] != "image/jpeg" && imagen['type']!= "image/png"){
-       console.log('mirando imagen')
+     
+
+        
         $('.form_group_imagen_editar').after('<div class="alert alert-danger text-center alerta">solo formato jpg y png</div>')
     }else if(imagen["size"]>2000000){
        

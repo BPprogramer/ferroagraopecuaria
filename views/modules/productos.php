@@ -51,7 +51,7 @@
 <div id="agregarProducto" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form role="form" class="form_agregar_producto" enctype="multipart/form-data" method="post">
+            <form role="form" class="form_agregar_producto" enctype="multipart/form-data" method="post" novalidate>
                 <div class="modal-header" style="background-color: #3c8dbc; color:white">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Agregar Producto</h4>
@@ -169,7 +169,7 @@
 <div id="infoProducto" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form role="form" class="formulario_guardar_cliente">
+            <form role="form" class="formulario_guardar_cliente" novalidate>
                 <div class="modal-header" style="background-color: #3c8dbc; color:white">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Información del Producto</h4>
@@ -194,7 +194,7 @@
 <div id="editarProducto" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form role="form" class="form_editar_producto" enctype="multipart/form-data" method="post">
+            <form role="form" class="form_editar_producto" enctype="multipart/form-data" method="post" novalidate>
                 <div class="modal-header" style="background-color: #3c8dbc; color:white">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Editar Producto</h4>
