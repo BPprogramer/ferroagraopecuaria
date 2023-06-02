@@ -30,9 +30,10 @@
                             <th>#</th>
                             <th>Vendedor</th>
                             <th>efectivo inicial</th>
-                            <th>efectivo Ventas</th>
-                            <th>total</th>
-                            <th>apertura</th>
+                            <th>Total Ventas</th>
+                            <th>Credito</th>
+
+                            <th>Efectivo total</th>
                             <th>cierre</th>
                             <th>estado</th>
                             

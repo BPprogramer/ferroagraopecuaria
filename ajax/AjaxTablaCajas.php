@@ -16,7 +16,7 @@
             $datoJson = '{
                 "data": [';
                     foreach($cajas as $key=>$caja){
-                      
+                      $i++;
                         $estado = $caja['estado'];
                         if($estado=='0'){
                           
@@ -49,9 +49,10 @@
                                 "'.$caja['vendedor'].'",
                                 "$'.number_format($caja['efectivo_apertura']).'",
                                 "$'.number_format($caja['efectivo_ventas']).'",
+                                "$'.number_format($caja['creditos']).'",
                                 "$'.number_format($caja['efectivo_cierre']).'",
                                 "'.$fecha_apertura_format.'",
-                                "'.$fecha_cierre_format.'",
+                              
                                 "'.$btn_estado.'"
                                 
                               

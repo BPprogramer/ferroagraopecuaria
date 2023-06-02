@@ -22,6 +22,7 @@
                 $args['estado'] = 0;
                 $args['vendedor'] = $_SESSION['nombre'];
                 $args['efectivo_ventas'] = 0;
+                $args['creditos'] = 0;
                 $args['efectivo_cierre'] = 0;
               
                 $respuesta = $caja->abrirCaja($args);
@@ -49,12 +50,15 @@
             date_default_timezone_set('America/Bogota');
             $args['fecha_final']  = date('Y-m-d H:i:s');
             $efectivo_ventas = Ventas::consultarVentasPorFecha($args, 'total');
+            $creditos_array = Ventas::consultarVentasPorFecha($args, 'deuda');
+            $creditos = $creditos_array['total'];
+           
             $efectivo_apertura = $caja_actual['efectivo_apertura'];
-            $efectivo_cierre = $efectivo_ventas['total']+$efectivo_apertura;
+            $efectivo_cierre = $efectivo_ventas['total']+$efectivo_apertura-$creditos;
             $fecha_cierre = $args['fecha_final'];
             $estado = 1;
 
-            $datos_caja_cierre = ['estado'=> $estado, 'efectivo_ventas'=>$efectivo_ventas['total'], 'efectivo_cierre'=>$efectivo_cierre,'fecha_cierre'=>$fecha_cierre];
+            $datos_caja_cierre = ['estado'=> $estado, 'efectivo_ventas'=>$efectivo_ventas['total'],'creditos'=>$creditos, 'efectivo_cierre'=>$efectivo_cierre,'fecha_cierre'=>$fecha_cierre];
            
             $actualizar_caja = new Caja();
             $respuesta = $actualizar_caja->actualizarCaja($datos_caja_cierre, $id);

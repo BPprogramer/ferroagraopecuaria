@@ -128,7 +128,9 @@ $(".tablaProductosVentas").on('click', '.agregarProducto', function(){
             const precio_compra = req['precio_compra'];
             const id = req['id']
             if(stock==0){
+              
                 Swal.fire({
+                  
                     title:'No disponible en Stock',
                     icon:'error',
                     confirmButtonText:'cerrar'
@@ -150,7 +152,7 @@ $(".tablaProductosVentas").on('click', '.agregarProducto', function(){
                                     <i class="fa fa-times"></i>
                                 </button>
                             </span>
-                            <input type="text" value="${descripcion}" id_producto="${id}" class="form-control descripcion_producto" id="descripcion_producto" name="agregar_producto" placeholder="descripcion  producto"> 
+                            <input type="text" value="${descripcion}" id_producto="${id}" class="form-control descripcion_producto" id="descripcion_producto" name="agregar_producto" placeholder="descripcion"  readonly> 
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -359,6 +361,7 @@ $('.productosVenta').on('input', 'input.cantidad_producto', function(){
 
 
     if(cantidad>stock){
+      
         $(this).attr('stock_actual',0);
         console.log(cantidad +" es mayor que "+stock)
         Swal.fire({
@@ -368,15 +371,18 @@ $('.productosVenta').on('input', 'input.cantidad_producto', function(){
 
         })
         $(this).val($(this).val()-1)
+        // $(this).val(0)
+        // console.log($('.productosVenta').find("#precio_producto").val(0));
     }else{
         const precio = $(this).parent().parent().children('.contenido_precio').children().children('.precio_producto')
         const precio_total_producto = ($(this).val())*(precio.attr('precioProducto'));
         const precio_formateado = $.number(precio_total_producto,2)
 
         precio.text(precio_formateado)
+        sumarTotalPrecios();
     }
    // $('.precio_producto').number(true,2)
-    sumarTotalPrecios();
+    
    
     
    
