@@ -36,6 +36,8 @@ if($('.tablaComprasPendientes').length>0){
 
     function submitFormulario(){
         $('form').submit(function(e){
+    
+            $('#btnEditarStock').prop('disabled',true)
             e.preventDefault();
             const agregar_stock = $('#editar_stock').val();
            

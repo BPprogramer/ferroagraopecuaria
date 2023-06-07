@@ -13,7 +13,9 @@ function iniciarapp(){
 
 function submitFormulario(){
     $('form').submit(function(e){
+        $('#btnEditarStock').prop('disabled',true)
         e.preventDefault();
+        
         const agregar_stock = $('#editar_stock_producto').val();
      
         enviarStock(agregar_stock);
