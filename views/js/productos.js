@@ -9,6 +9,8 @@ $('.tablaProductos').DataTable({
     "proccesing":true
 });
 
+
+
 //mostrar informacion del producto
 
 $(document).on('click','.btnInfoProducto',function(){

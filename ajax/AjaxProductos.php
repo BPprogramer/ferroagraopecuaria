@@ -41,6 +41,11 @@
             $respuesta = ProductosController::consultarProductosDes('ventas');
             echo json_encode($respuesta);
         }
+
+        public function ajaxAgregarStock(){
+            $respuesta = ProductosController::agregarStock();
+            echo json_encode($respuesta);
+        }
     }
 
     $producto = new AjaxProductos();
@@ -77,6 +82,10 @@
     if(isset($_POST['consultar_productos_desc'])){
 
         $producto->ajaxConsultarProductosDes();
+    }
+    if(isset($_POST['agregar_stock'])){
+
+        $producto->ajaxAgregarStock();
     }
   
 ?>

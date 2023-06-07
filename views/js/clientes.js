@@ -2,6 +2,8 @@ if(localStorage.getItem('rango')!=null){
     $('#daterange_btn span').html(localStorage.getItem('rango'));
    
 }
+if($('tablaClientes').length>0){
+  
 $(".tablaClientes").dataTable().fnDestroy(); //por si me da error de reinicializar
 
 $('.tablaClientes').DataTable({
@@ -310,3 +312,5 @@ $(document).on('click', '.btnEliminarCliente', function(){
     })
 }
 })
+
+}

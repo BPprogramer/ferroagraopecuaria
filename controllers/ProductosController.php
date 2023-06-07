@@ -12,6 +12,41 @@
             $respuesta = Productos::consultarProductosDes($order);
             return $respuesta;
         }
+
+        public static function agregarStock(){
+           
+            $stock =  $_POST['agregar_stock'];
+            $stock_actual = $_POST['stock_actual'];
+            $id = $_POST['id_producto_editar'];
+            $parttern = '/^\d+$/';
+            if($stock == ''){
+                return 'empty';
+            }
+            if(!preg_match($parttern, $stock)){
+                return 'no_validate';
+            }
+            if(!preg_match($parttern, $stock_actual)){
+                return 'no_validate';
+            }
+            if(!preg_match($parttern, $id)){
+                return 'no_validate';
+            }
+     
+            $args['id'] = $id;
+            $args['stock'] = $stock+$stock_actual;
+      
+         
+            $producto = new Productos();
+            $respuesta = $producto->agregarStock($args);
+            return $respuesta;
+
+        }
+
+        //para hacer un join despuesss
+        // public static function consultarProductosProveedores(){
+        //     $respuesta = Productos::consultarProductosProveedores($order);
+        //     return $respuesta;
+        // }
         
         
         public static function crearProducto(){

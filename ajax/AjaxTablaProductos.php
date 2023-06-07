@@ -5,9 +5,9 @@
     require_once "../controllers/CategoriasController.php";
     require_once "../models/Categorias.php";
 
-    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-    header("Cache-Control: post-check=0, pre-check=0", false);
-    header("Pragma: no-cache");
+    // header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    // header("Cache-Control: post-check=0, pre-check=0", false);
+    // header("Pragma: no-cache");
 
     class AjaxTablaProductos{
         public function mostrarTablaProductos(){
@@ -34,11 +34,11 @@
                         $botones .= "<button class='btn btn-danger btnEliminarProducto' idProducto='".$producto['id']."'><i class='fa fa-times'   data-toggle='modalEliminar' data-target='#modalEliminarProducto'</i></button>";
                         $botones .= "</div>";
                         if($producto['stock']<$producto['stock_minimo']){
-                            $stock = "<button class='btn btn-danger'>".$producto['stock']."</button>";
+                            $stock = "<button class='btn btn-danger' id='btn_stock' id_producto_editar_stock = '".$producto['id']."' data-target='#editarStock' data-toggle='modal'>".$producto['stock']."</button>";
                         }else if($producto['stock']>$producto['stock_maximo']){
-                            $stock = "<button class='btn btn-warning'>".$producto['stock']."</button>";
+                            $stock = "<button class='btn btn-warning' id='btn_stock' id_producto_editar_stock = '".$producto['id']."' data-target='#editarStock' data-toggle='modal'>".$producto['stock']."</button>";
                         }else{
-                            $stock = "<button class='btn btn-success'>".$producto['stock']."</button>";
+                            $stock = "<button class='btn btn-success' id='btn_stock' id_producto_editar_stock = '".$producto['id']."' data-target='#editarStock' data-toggle='modal'>".$producto['stock']."</button>";
                         }
                         
                         $datoJson.= '[

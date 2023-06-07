@@ -65,6 +65,12 @@
 							<span>Proveedores</span>
 						</a>
 					</li>
+					<li>
+						<a href="compras">
+							<i class="fas fa-shopping-basket"></i>
+							<span>Compras</span>
+						</a>
+					</li>
 				<?php }?>
 				<?php if($_SESSION['perfil']=='administrador' || $_SESSION['perfil']=='vendedor'){?>
 					<li>

@@ -134,6 +134,7 @@ CUERPO DOCUMENTO sidebar-collapse
                    $_GET['ruta']=='creditos' ||
                    $_GET['ruta']=='proveedores' ||
                    $_GET['ruta']=='cajas' ||
+                   $_GET['ruta']=='compras' ||
               
                    $_GET['ruta'] == 'logout'
                ){
@@ -221,6 +222,8 @@ CUERPO DOCUMENTO sidebar-collapse
     <script src="views/js/creditos.js"></script>
     <script src="views/js/proveedores.js"></script>
     <script src="views/js/cajas.js"></script>
+    <script src="views/js/compras.js"></script>
+    <script src="views/js/editar_stock_productos.js"></script>
 
     <script src="views/plugins/jquery_number/jquerynumber.min.js"></script>
 

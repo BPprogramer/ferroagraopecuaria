@@ -32,6 +32,14 @@
             return  $resultado;
         }
 
+        //aqui haremos un join despues
+        // public static function consultarProductosProveedores(){
+        //     $stmt = Conexion::conectarDB()->prepare("SELECT * FROM productos ORDER BY $order DESC");
+        //     $stmt->execute();
+        //     $resultado = $stmt->fetchAll();
+        //     return  $resultado;
+        // }
+
         public function registrarProducto($tabla, $datos){
           
             $stmt = Conexion::conectarDB()->prepare("INSERT INTO $tabla (id_categoria, id_proveedor, codigo, descripcion, imagen, stock, stock_minimo, stock_maximo, precio_compra, precio_venta) VALUES (:id_categoria,:id_proveedor, :codigo, :descripcion, :imagen, :stock,:stock_minimo, :stock_maximo, :precio_compra, :precio_venta)");
@@ -67,6 +75,17 @@
             $stmt->bindParam(":precio_compra", $datos['precio_compra'],  PDO::PARAM_STR);
             $stmt->bindParam(":precio_venta", $datos['precio_venta'],  PDO::PARAM_STR);
             $stmt->bindParam(":id", $datos['id'],  PDO::PARAM_STR);
+            if($stmt->execute()){
+                return 'success';
+            }else{
+                return 'error';
+            }
+        }
+        public function agregarStock($args){
+ 
+            $stmt = Conexion::conectarDB()->prepare("UPDATE productos SET stock = :stock WHERE id = :id");
+            $stmt->bindParam(":stock", $args['stock'],PDO::PARAM_STR);
+            $stmt->bindParam(":id", $args['id'],PDO::PARAM_STR);
             if($stmt->execute()){
                 return 'success';
             }else{
