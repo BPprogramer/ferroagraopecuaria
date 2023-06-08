@@ -24,11 +24,14 @@ class imprimirFactura{
     public $direccion_cliente;
     public $correo_cliente;
     public $abono;
+    public $metodo_pago;
     
   
     
     public function consultar(){
         $venta = VentasController::consultarDatosVenta('codigo', $this->codigo);
+        $this->metodo_pago = $venta['metodo_pago'];
+
         $this->fecha = substr($venta['fecha'],0,-8);
         $this->productos = json_decode($venta['productos'],true);
         $this->total = number_format($venta['total'],2);
@@ -52,142 +55,225 @@ class imprimirFactura{
     public function imprimir(){
       
         require('tcpdf_include.php'); 
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-        $pdf->startPageGroup();
-        $pdf->AddPage();
+    //    $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    
+    //     $pdf->setPrintHeader(false); //quitamos el header
+    //     $pdf->setPrintFooter(false);
+      
+    //     $pdf->AddPage('P','A7'); //DAMOS EL FORMATO DEL PDF
+
+
+      
+   // Establecer una altura personalizada
+   $pdf = new TCPDF('P', 'mm', 'A7', true, 'UTF-8', false);
+    $altura_personalizada = 160; // Altura en mm
+    $pdf->setPrintHeader(false); //quitamos el header
+    $pdf->setPrintFooter(false);
+    
+    // Agregar una página al PDF con la altura personalizada
+    $pdf->AddPage('P', array($pdf->getPageWidth(), $altura_personalizada));
+    
+    // Agregar contenido al PDF
+    $pdf->SetFont('helvetica', '', 12);
+   
+
+        // Establecer una altura personalizada
+
+
+
+
+
+
+
+// Agregar una página al PDF con la altura personalizada
+       // $pdf->AddPage('P', array($pdf->getPageWidth(), $altura_personalizada));
+
         $bloque_1 = <<<EOF
-        <table>
-            <tr>
-                <td style="width:400px"><img src="images/baner_gildardo.PNG"></td>
+           
+            <div  style="font-size:10px;width:160px; height:500px; text-align:center; font-size:8px margin-bottom:0;">
+                FRORROAGROPECUARIA CAMPO VIDA
+                <br>
+                Nit: 98395261-7
+                <br>
+                Cel: 3175881174, 3104624214
+                <br>
+                Email: gildardobenavides@hotmail.com
+                <br>
+                La Victoria
+                <br>
+                <br>
+                **********************************************
+                <br>
+                <br>
+                Ticket No: $this->codigo
+                <br>
+                <br>
+                Fecha Compra No: $this->fecha
+                
+              
+            </div>    
                
-             
-                <td style="background-color:white; width:140px; text-align:center; color:red">
-                    <br><br>Factura N.<br>$this->codigo<br>
-                </td>
-            </tr>
-        </table>
-        EOF; 
+
+        EOF;
+
         $pdf->writeHTML($bloque_1, false, false, false, false, '');
 
-
-        $bloque_2 = <<<EOF
-        <br><br>
-        
-        
-            <table style="font-size:10px; padding:5px 10px">
-                <tr>
-                    <td style="border:1px solid #666; background-color:white; width:390px">
-                        Vendedor: <strong>$this->vendedor</strong>
-                    </td>
-                    <td style="border:1px solid #666; background-color:white; width:150px">
-                        Fecha: <strong>$this->fecha</strong>
-                    </td>
-                </tr>
-            
-            </table>
-            
-            <h3> Cliente</h3>
-            <br>
-            <table style="font-size:10px; padding:5px 10px">
-                <tr>
-                    <td style="border:1px solid #666; background-color:white; width:270px">
-                        Nombre:   <strong>$this->nombre_cliente</strong>
-                    </td>
-                    <td style="border:1px solid #666; background-color:white; width:270px">
-                       Cédula:   <strong>$this->cedula_cliente</strong>
-                    </td>
-                  
-                
-                </tr>
-            
-            </table>
-
-            <table style="font-size:10px; padding:5px 10px">
-                <tr>
-                    <td style="border:1px solid #666; background-color:white; width:270px">
-                        Telefono:   <strong>$this->telefono_cliente</strong>
-                    </td>
-                    <td style="border:1px solid #666; background-color:white; width:270px">
-                        Correo:   <strong>$this->correo_cliente</strong>
-                    </td>
-                </tr>
-            </table>
-            <table style="font-size:10px; padding:5px 10px">
-                <tr>
-                    <td style="border:1px solid #666; background-color:white; width:270px">
-                        Dirección:   <strong>$this->direccion_cliente</strong>
-                    </td>
+        if($this->nombre_cliente != ''){
+                $bloque_nombre = <<<EOF
+             
+                    <div  style="font-size:10px;width:160px; text-align:center; font-size:8px margin-bottom:0;">
+                        Cliente: $this->nombre_cliente
+                    </div>
                     
-                </tr>
-            </table>
+                EOF;
 
-          
-           
-        EOF;
-        $pdf->writeHTML($bloque_2, false, false, false, false, '');
-
-
-        $bloque_3 = <<<EOF
-        <br><br>
-        
-        
-            <table style="font-size:10px; padding:5px 10px">
-                <tr>
-                    <td style="border:1px solid #666; background-color:white; width:260px"> Producto</td>
-                    <td style="border:1px solid #666; background-color:white; width:80px">Cantidad</td>
-                    <td style="border:1px solid #666; background-color:white; width:100px">Valor Unitario</td>
-                    <td style="border:1px solid #666; background-color:white; width:100px">Valor total</td>
-          
-                </tr>
+        $pdf->writeHTML($bloque_nombre, false, false, false, false, '');
+        }
+        if($this->cedula_cliente != ''){
+            $bloque_cedula = <<<EOF
                
-            </table>
-        EOF;
-        $pdf->writeHTML($bloque_3, false, false, false, false, '');
+                <div  style="font-size:10px;width:160px; text-align:center; font-size:8px margin-bottom:0;">
+                    Cedula: $this->cedula_cliente
+                </div>
+            EOF;
+             $pdf->writeHTML($bloque_cedula, false, false, false, false, '');
+        }
+        if($this->telefono_cliente != ''){
+            $bloque_telefono = <<<EOF
+               
+                <div  style="font-size:10px;width:160px; text-align:center; font-size:8px margin-bottom:0;">
+                    Telefono: $this->telefono_cliente
+                </div>
+            EOF;
+             $pdf->writeHTML($bloque_telefono, false, false, false, false, '');
+        }
+        if($this->direccion_cliente != ''){
+            $bloque_direccion = <<<EOF
+            
+                <div  style="font-size:10px;width:160px; text-align:center; font-size:8px margin-bottom:0;">
+                    Dirección: $this->direccion_cliente
+                </div>
+            EOF;
+             $pdf->writeHTML($bloque_direccion, false, false, false, false, '');
+        }
+        if($this->correo_cliente != ''){
+            $bloque_correo = <<<EOF
+            
+                <div  style="font-size:10px;width:160px; text-align:center; font-size:8px margin-bottom:0;">
+                    Email: $this->correo_cliente
+                </div>
+            EOF;
+             $pdf->writeHTML($bloque_correo, false, false, false, false, '');
+        }
 
+        $bloque_vendedor = <<<EOF
+            
+            <div  style="font-size:10px;width:160px; text-align:center; font-size:8px margin-bottom:0;">
+                Vendedor: $this->vendedor
+            </div>
+        EOF;
+        $pdf->writeHTML($bloque_vendedor, false, false, false, false, '');
+        
+        $bloque_salto = <<<EOF
+               
+            <div  style="font-size:10px;width:160px; text-align:center; font-size:8px margin-bottom:0;">
+                <br>
+                **********************************************
+                Productos
+               
+               
+            </div>
+        EOF;
+    
+        $pdf->writeHTML($bloque_salto, false, false, false, false, '');
         foreach($this->productos as $producto){
             $total_producto = number_format($producto['precio_producto']*$producto['cantidad'],2);
             $valor_unitario = number_format($producto['precio_producto'],2);
-            $bloque_4 = <<<EOF
-        
-            
-            
-                <table style="font-size:10px; padding:5px 10px">
-                    <tr>
-                        <td style="border:1px solid #666; background-color:white; width:260px"> {$producto['descripcion']}</td>
-                        <td style="border:1px solid #666; background-color:white; width:80px">{$producto['cantidad']}</td>
-                        <td style="border:1px solid #666; background-color:white; width:100px">$ $valor_unitario</td>
-                        <td style="border:1px solid #666; background-color:white; width:100px"><strong>$ $total_producto</strong></td>
-            
-                    </tr>
-                
-                </table>
-            EOF;
-            $pdf->writeHTML($bloque_4, false, false, false, false, '');
-        }
-        $bloque_5 = <<<EOF
-        <br><br>
-        
-        
-            <table style="font-size:10px; padding:5px 10px">
-                <tr>
-                    <td style="border-right:1px solid #666;background-color:white; width:340px"> </td>
-                    <td style="border:1px solid #666; background-color:white; width:100px">Total Compra: </td>
-                    <td style="border:1px solid #666;border-left::1px solid #666; background-color:white; width:100px"><strong>$ $this->total</strong></td>
-                </tr>
-                <tr>
-                    <td style="border-right:1px solid #666;background-color:white; width:340px"> </td>
-                    <td style="border:1px solid #666; background-color:white; width:100px">Abono: </td>
-                    <td style="border:1px solid #666;border-left::1px solid #666; background-color:white; width:100px"><strong>$ $this->abono</strong></td>
-                </tr>
-                <tr>
-                    <td style="border-right:1px solid #666;background-color:white; width:340px"> </td>
-                    <td style="border:1px solid #666; background-color:white; width:100px">Total Pagar: </td>
-                    <td style="border:1px solid #666;border-left::1px solid #666; background-color:white; width:100px"><strong>$ $this->deuda</strong></td>
-                </tr>
+            $bloque_productos = <<<EOF
                
-            </table>
+            <div  style="font-size:10px;width:160px; text-align:right; font-size:8px">
+                {$producto['descripcion']}
+                <br>
+                <span style="display:inline-block; text-align: center;">{$valor_unitario}X{$producto['cantidad']} = {$total_producto} </span>   
+                         
+            </div>
+
+         <br>
+
         EOF;
-        $pdf->writeHTML($bloque_5, false, false, false, false, '');
+    
+        $pdf->writeHTML($bloque_productos, false, false, false, false, '');
+        }
+        $bloque_salto = <<<EOF
+               
+            <div  style="font-size:10px;width:160px; text-align:center; font-size:8px margin-bottom:0;">
+                <br>
+                **********************************************
+              
+              
+            
+            </div>
+        EOF;
+        $pdf->writeHTML($bloque_salto, false, false, false, false, '');
+        
+
+        if($this->metodo_pago == 'efectivo'){
+            $bloque_correo = <<<EOF
+            
+                <div  style="font-size:10px;width:160px; text-align:right; font-size:8px margin-bottom:0;">
+                    Pago en efectivo
+                    <br>
+                    <br>
+                    <strong>Total:</strong> $this->total
+                </div>
+        EOF;
+        $pdf->writeHTML($bloque_correo, false, false, false, false, '');
+       }else{
+            $bloque_correo = <<<EOF
+            
+                <div  style="font-size:10px;width:160px; text-align:right; font-size:8px margin-bottom:0;">
+                    Pago a Credito
+                    <br>
+                    <br>
+                    <strong>Total:</strong> $this->total
+                    <br>
+                    <strong>Abono:</strong> $this->abono
+                    <br>
+                    <strong>Saldo Pendiente:</strong> $this->deuda
+                </div>
+            EOF;
+            $pdf->writeHTML($bloque_correo, false, false, false, false, '');
+       }
+
+
+       //final
+       $bloque_salto_fin = <<<EOF
+                
+        <div  style="font-size:15px;width:160px; text-align:center; font-size:8px margin-bottom:0;">
+            <br>
+            **********************************************
+            <br>
+            Agradecemos Su Compra
+      
+         
+         
+          
+         
+      
+         
+        
+        </div>
+       EOF;
+       $pdf->writeHTML($bloque_salto_fin, false, false, false, false, '');
+
+        
+
+ 
+
+      
+        
+
+
 
 
         $pdf->Output('factura.pdf');
