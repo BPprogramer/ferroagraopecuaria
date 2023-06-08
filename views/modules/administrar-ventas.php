@@ -33,15 +33,15 @@
                 
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Codigo de factura</th>
+                            <th style="max-width:8px">#</th> 
+                            <th style="max-width:100px"># factura</th>
                        
-                            <th>vendedor</th>
-                            <th>forma de pago</th>
+                            <th style="max-width:290px">vendedor</th>
+                            <th style="max-width:100px">Pago</th>
                          
                             <th>Total</th>
                             <th>Deuda</th>
-                            <th>Fecha de Transacción</th>
+                          <!--   <th>Fecha de Transacción</th> -->
                             <th>Acciones</th>
                     
                         </tr>
@@ -83,7 +83,7 @@
                                 $hora = date('g:i a', $timestamp);                  
                         ?>
                             <tr>
-                                <td><?php echo $cont++ ?></td>
+                              <td><?php echo $cont++ ?></td> 
                                 <td class="codigo"><?php echo $venta['codigo']?></td>
                         
                                 <td><?php echo $venta['nombre_vendedor']?></td>
@@ -91,12 +91,14 @@
                                
                                 <td>$<?php echo number_format($venta['total'])?></td>
                                 <td>$<?php echo number_format($venta['deuda'])?></td>
-                                <td><?php echo $fecha.' '.$hora?></td>   
+                               <!--  <td><?php //echo $fecha.' '.$hora?></td>   --> 
                                 <td>
                                     <div class="btn-group">
+                                        <button class="btn btn-danger btn_imprimir_ticket" id_imprimir_ticket = "<?php echo $venta['id'] ?>"><i class="fa-solid fa-ticket"></i></button>
                                         <button class="btn btn-info btn_imprimir_factura" codigo_factura="<?php echo $venta['codigo']?>"><i class="fa fa-print"></i></button>
                                         <button  class="btn btn-warning btn_editar_venta" id_venta = "<?php echo $venta['id'] ?>"><i class="fa fa-pencil"></i></button>                     
                                         <button class="btn btn-danger btn_eliminar_venta" id_venta_eliminar = "<?php echo $venta['id'] ?>"><i class="fa fa-times"></i></button>
+                                        
                                     </div>
                                 </td>
                             </tr>

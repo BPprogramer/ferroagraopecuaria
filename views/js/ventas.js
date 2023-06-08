@@ -363,14 +363,18 @@ $('.productosVenta').on('input', 'input.cantidad_producto', function(){
     if(cantidad>stock){
       
         $(this).attr('stock_actual',0);
-        console.log(cantidad +" es mayor que "+stock)
+        //$(this).val(0)
+        $(this).val($(this).val()-1)
+        //console.log(cantidad +" es mayor que "+stock)
         Swal.fire({
             title:'No disponible de mas productos en el  Stock',
             icon:'error',
             confirmButtonText:'cerrar'
 
         })
-        $(this).val($(this).val()-1)
+        $(this).val($(this).val()-stock)
+        console.log($(this).parent().parent().children('.contenido_precio').children().children('.precio_producto').text(0))
+        sumarTotalPrecios();
         // $(this).val(0)
         // console.log($('.productosVenta').find("#precio_producto").val(0));
     }else{
@@ -611,7 +615,7 @@ function calcular_cambio(){
 function calcular_deuda(){
 
     const valor_efectivo = $(this).val();
-    console.log(valor_efectivo)
+   
     const total_venta = parseFloat($('#total_venta').text().replace(/,/g, ''));
 
     const cambio_efectivo = valor_efectivo-total_venta

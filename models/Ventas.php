@@ -132,8 +132,11 @@
             $tabla = "administrar_ventas";
             $fecha_final = $fecha_final.' 23:59:59';
             $fecha_inicial = $fecha_inicial.' 00:00:00';
-            $stmt = Conexion::conectarDB()->prepare("SELECT * FROM $tabla WHERE fecha BETWEEN '$fecha_inicial' AND '$fecha_final' ORDER BY id DESC");
-      
+        
+            $stmt = Conexion::conectarDB()->prepare("SELECT * FROM $tabla WHERE fecha BETWEEN '$fecha_inicial' AND '$fecha_final' ORDER BY fecha DESC");
+            //$stmt = Conexion::conectarDB()->prepare("SELECT * FROM $tabla WHERE fecha >= '$fecha_inicial' AND fecha <= '$fecha_final' ORDER BY fecha DESC");
+            //$stmt = Conexion::conectarDB()->prepare("SELECT * FROM $tabla WHERE fecha >= '$fecha_inicial' AND fecha <= '$fecha_final' ORDER BY id DESC");
+
             $stmt->execute();
             return $stmt->fetchAll();
 

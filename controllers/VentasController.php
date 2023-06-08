@@ -1,8 +1,14 @@
 
 <?php
     
-//    require_once '../models/Ventas.php';
+    //    require_once '../models/Ventas.php';
    
+    require_once __DIR__.'/../vendor/autoload.php';
+    use Mike42\Escpos\Printer;
+    use Mike42\Escpos\EscposImage;
+    use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+    use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+ 
     class VentasController{
 
 
@@ -46,9 +52,101 @@
             return $venta;
         }
 
+        public static function impirmir_ticket(){
+         
+            $id = filter_var($_POST['id_imprimir_ticket'], FILTER_VALIDATE_INT);
+            if(!$id){
+                return 'no_validate';
+            }
+            $venta = self::consultarDatosVenta( 'id', $id);
+   
+            $numero_factura = $venta['codigo'];
+            $fecha = $venta['fecha'];
+            $productos = json_decode($venta['productos'],true);
+      
+            $total = number_format($venta['total'],2);
+            $deuda = number_format($venta['deuda'],2);
+            $abono = number_format($venta['total']-$venta['deuda'],2);
+            $total_pagar = number_format($venta['total'],2);
+           
+            $nombre_cliente = $venta['nombre_cliente'];
+            $cedula_cliente = $venta['cedula_cliente'];
+            $telefono_cliente = $venta['telefono_cliente'];
+            $correo_cliente = $venta['correo'];
+            $direccion_cliente = $venta['direccion'];
+            $pago_total = $venta['pago_total'];
+            $vendedor = $venta['nombre_vendedor'];
+          
+            $impresora = 'POS58';
+            $conector = new WindowsPrintConnector($impresora);
+            $printer = new Printer($conector);
+            $printer->setJustification(Printer::JUSTIFY_CENTER);
+            $printer->text("FERROAGROPECUARIA CAMPO VIDA"."\n");
+            $printer->text("VEREDA LA VICTORIA, tABLON DE GOMEZ"."\n");
+            $printer->text("Nit: 98395261-7"."\n");
+            $printer->text("Cel: 3175881174, 3104624214"."\n");
+            $printer->text("Email: gildardobenavides@hotmail.com"."\n\n");
+            $printer->text("************************************************"."\n\n");
+            
+            $printer->text("Ticket No: ".$numero_factura."\n\n");
+            if($nombre_cliente!=''){
+                $printer->text("Cliente: ".$nombre_cliente."\n");
+            }
+            if($cedula_cliente!=''){
+                $printer->text("Cedula: ".$cedula_cliente."\n");
+            }
+            $printer->text("Fecha Compra: ".$fecha."\n");
+            $printer->text("Vendedor: ".$vendedor."\n");
+
+            $printer->text("************************************************"."\n\n");
+
+            $printer->text("Productos"."\n\n");
+
+         
+
+            foreach($productos as $producto){
+                //calculos
+                $precio_producto = $producto['precio_producto'];
+                $total_por_producto =  $precio_producto*$producto['cantidad'];
+                $precio_producto = number_format($precio_producto,2);
+                $total_por_producto = number_format($total_por_producto,2);
+                $cantidad = $producto['cantidad'];
+
+                //impresion
+                $printer->setJustification(Printer::JUSTIFY_CENTER);
+                $printer->text($producto['descripcion']."\n");
+                $printer->setJustification(Printer::JUSTIFY_RIGHT);
+                $printer->text($precio_producto." X ".$cantidad." = ".$total_por_producto."\n\n");
+               
+            }
+            $printer->text("************************************************"."\n\n");
+         
+      
+            if($venta['metodo_pago']=='efectivo'){
+                $printer->text('Pago de Contado'."\n");
+                $printer->text('$total = '.$total_pagar."\n\n");
+            }else{
+                $printer->text('Pago a Credito'."\n");
+                $printer->text('$Valor Compra = '.$total_pagar."\n");
+                $printer->text('$Abono = '.$abono."\n");
+                $printer->text('$Saldo Pendiente = '.$deuda."\n\n");
+            }
+            $printer->text("************************************************"."\n\n");
+            $printer->setJustification(Printer::JUSTIFY_CENTER);
+            $printer->text("Mucha sgracias por su compra"."\n\n");
+
+
+        
+            //$imprimir -> text($total."\n");
+            $printer -> cut();
+            $printer ->close();
+            return 'success';
+        }
+
 
         public static function crearVenta(){
-         
+        
+
             require_once '../models/Productos.php';
             require_once '../models/Clientes.php';
             require_once '../models/Ventas.php';
@@ -107,9 +205,11 @@
                     $args['deuda'] = $_POST['deuda'];
                     $args['fecha'] = $_POST['fecha'];
                     $respuesta = $credito->guardarCredito($args);
+                    
                     if($respuesta=='error'){
                         return $respuesta;
                     }
+
                        
             }
       
@@ -118,8 +218,11 @@
            $venta = new Ventas();
            $tabla = 'administrar_ventas';
            $respuesta = $venta->registrarVenta($_POST, $tabla);
-        
-           return $respuesta;
+            if($respuesta == 'success'){
+              
+                return $respuesta;
+            }
+       
            
         //   
         }

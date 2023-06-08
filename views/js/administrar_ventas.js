@@ -1,6 +1,7 @@
  
 //mostrar rangos de venta por fecha
 let data_range_li;
+if('.tablaVentas'){
 $('.tables').ready(function(){
 
     if($('#daterange_btn').length>0){
@@ -9,9 +10,32 @@ $('.tables').ready(function(){
         verificarLocalStorage();
         dateRangerPicker();
         hoverRangoPersonalzado();
-          //click en el boton cancelar
+      
        $('.cancelBtn').click(cancelarRango)
         
+    }
+    $(document).on('click','.btn_imprimir_ticket',enviarIdParaTicket);
+
+    function enviarIdParaTicket(){
+        const id_imprimir_ticket = $(this).attr('id_imprimir_ticket');
+      
+        const datos = new FormData();
+        datos.append('id_imprimir_ticket', id_imprimir_ticket);
+        $.ajax({
+            url:'ajax/AjaxVentas.php',
+            data:datos,
+            method:'POST',
+            contentType:false,
+            processData:false,
+            cache:false,
+            dataType:'json',
+            success:function(req){
+              console.log(req)
+            },
+            error:function(error){
+              console.log(error.responseText)
+            }
+        })
     }
 
 
@@ -144,3 +168,4 @@ $('.tables').ready(function(){
     }
     
 })
+}
