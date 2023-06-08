@@ -94,7 +94,7 @@
                                <!--  <td><?php //echo $fecha.' '.$hora?></td>   --> 
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-danger btn_imprimir_ticket" id_imprimir_ticket = "<?php echo $venta['id'] ?>"><i class="fa-solid fa-ticket"></i></button>
+                             <!--            <button class="btn btn-danger btn_imprimir_ticket" id_imprimir_ticket = "<?php //echo $venta['id'] ?>"><i class="fa-solid fa-ticket"></i></button> -->
                                         <button class="btn btn-info btn_imprimir_factura" codigo_factura="<?php echo $venta['codigo']?>"><i class="fa fa-print"></i></button>
                                         <button  class="btn btn-warning btn_editar_venta" id_venta = "<?php echo $venta['id'] ?>"><i class="fa fa-pencil"></i></button>                     
                                         <button class="btn btn-danger btn_eliminar_venta" id_venta_eliminar = "<?php echo $venta['id'] ?>"><i class="fa fa-times"></i></button>

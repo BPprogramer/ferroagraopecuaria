@@ -102,6 +102,7 @@
 
             $printer->text("Productos"."\n\n");
 
+        
          
 
             foreach($productos as $producto){
