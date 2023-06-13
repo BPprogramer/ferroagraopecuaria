@@ -62,16 +62,16 @@ class imprimirFactura{
       
     //     $pdf->AddPage('P','A7'); //DAMOS EL FORMATO DEL PDF
 
-
       
    // Establecer una altura personalizada
-   $pdf = new TCPDF('P', 'mm', 'A7', true, 'UTF-8', false);
-    $altura_personalizada = 160; // Altura en mm
+   $pdf = new TCPDF('P', 'mm', array(80, 190), true, 'UTF-8', false);
+   //$pdf = new TCPDF('P', 'mm', 'A7', true, 'UTF-8', false);
+    $altura_personalizada = 190; // Altura en mm
     $pdf->setPrintHeader(false); //quitamos el header
     $pdf->setPrintFooter(false);
     
     // Agregar una página al PDF con la altura personalizada
-    $pdf->AddPage('P', array($pdf->getPageWidth(), $altura_personalizada));
+    $pdf->AddPage();
     
     // Agregar contenido al PDF
     $pdf->SetFont('helvetica', '', 12);
