@@ -15,6 +15,7 @@ class imprimirFactura{
     public $neto;
     public $impuesto;
     public $total;
+    public $descuento;
     public $cliente;
     public $vendedor;
     public $total_pagar;
@@ -25,16 +26,21 @@ class imprimirFactura{
     public $correo_cliente;
     public $abono;
     public $metodo_pago;
+    public $total_pagar_sin_descuento;
+    public $valor_descuento;
     
   
     
     public function consultar(){
+
         $venta = VentasController::consultarDatosVenta('codigo', $this->codigo);
         $this->metodo_pago = $venta['metodo_pago'];
-
+        $this->total_pagar_sin_descuento =  number_format($venta['total']/(1-$venta['descuento']),2);
+        $this->valor_descuento =  number_format(($venta['total']/(1-$venta['descuento']))-$venta['total'],2);
         $this->fecha = substr($venta['fecha'],0,-8);
         $this->productos = json_decode($venta['productos'],true);
         $this->total = number_format($venta['total'],2);
+        $this->descuento =$venta['descuento']*100;
         $this->deuda = number_format($venta['deuda'],2);
         $this->abono = number_format($venta['total']-$venta['deuda'],2);
         $this->total_pagar = number_format($venta['total'],2);
@@ -91,7 +97,7 @@ class imprimirFactura{
         $bloque_1 = <<<EOF
            
             <div  style="font-size:10px;width:160px; height:500px; text-align:center; font-size:8px margin-bottom:0;">
-                FRORROAGROPECUARIA CAMPO VIDA
+                FERROAGROPECUARIA CAMPO VIDA
                 <br>
                 Nit: 98395261-7
                 <br>
@@ -189,12 +195,14 @@ class imprimirFactura{
         foreach($this->productos as $producto){
             $total_producto = number_format($producto['precio_producto']*$producto['cantidad'],2);
             $valor_unitario = number_format($producto['precio_producto'],2);
+            $description = substr($producto['descripcion'], 0 , 15);
             $bloque_productos = <<<EOF
-               
-            <div  style="font-size:10px;width:160px; text-align:right; font-size:8px">
-                {$producto['descripcion']}
+            <br>
+            <div  style="font-size:10px;width:160px; text-align:left; font-size:8px">
+          
+               <span style=""> {$description}</span>  : {$valor_unitario}X{$producto['cantidad']} = {$total_producto} 
                 <br>
-                <span style="display:inline-block; text-align: center;">{$valor_unitario}X{$producto['cantidad']} = {$total_producto} </span>   
+                  
                          
             </div>
 
@@ -216,6 +224,7 @@ class imprimirFactura{
         EOF;
         $pdf->writeHTML($bloque_salto, false, false, false, false, '');
         
+        
 
         if($this->metodo_pago == 'efectivo'){
             $bloque_correo = <<<EOF
@@ -224,7 +233,13 @@ class imprimirFactura{
                     Pago en efectivo
                     <br>
                     <br>
+                    <strong>Importe:</strong> $this->total_pagar_sin_descuento
+                    <br>
+                    <strong>Descuento :</strong> {$this->descuento}% =  {$this->valor_descuento}
+                    <br>
                     <strong>Total:</strong> $this->total
+                    <br>
+                    
                 </div>
         EOF;
         $pdf->writeHTML($bloque_correo, false, false, false, false, '');
@@ -234,6 +249,10 @@ class imprimirFactura{
                 <div  style="font-size:10px;width:160px; text-align:right; font-size:8px margin-bottom:0;">
                     Pago a Credito
                     <br>
+                    <br>
+                    <strong>Importe:</strong> $this->total_pagar_sin_descuento
+                    <br>
+                    <strong>Descuento :</strong> {$this->descuento}% =  {$this->valor_descuento}
                     <br>
                     <strong>Total:</strong> $this->total
                     <br>

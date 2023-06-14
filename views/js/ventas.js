@@ -14,12 +14,20 @@ let codigo;
 let id_cliente;
 let id_vendedor;
 let productos;
-
+let descuento = 0;
+// if($('#formulario_editar').length>0 ){
+//    descuento =  $('#total_pagar').attr('descuento_editar');
+// }else{
+//     descuento = 0;
+// }
+console.log(descuento)
 let total;
 
 let metodo_pago='efectivo';
 
 let abono=0;
+
+
 let deuda=0;
 
 let total_precio_de_compra;
@@ -35,7 +43,7 @@ $(document).ready(function(){
     $('.cambio_efectivo').number(true,0)
     $('.valor_efectivo').number(true,0)
     $('.valor_deuda').number(true,0)
-$('.valor_abono').number(true,0)
+    $('.valor_abono').number(true,0)
     
 });
 
@@ -392,6 +400,20 @@ $('.productosVenta').on('input', 'input.cantidad_producto', function(){
    
 })
 
+//agregar descuento
+$('#descuento').on('input',aplicarDescuento);
+
+function aplicarDescuento(){
+    $('.valor_abono').val(0)
+    $('.valor_deuda').val(0)
+    $('.valor_efectivo').val(0)
+    $('.cambio_efectivo').val(0)
+    sumarTotalPrecios();
+  
+}
+
+
+
 //sumar todos los precios
 function sumarTotalPrecios(){
    
@@ -404,6 +426,7 @@ function sumarTotalPrecios(){
 
     if(precio_producto.length==0){
         $('#total_venta').text(0)
+        $('#total_pagar').text(0)
         total=0;
         return;
     }
@@ -416,21 +439,35 @@ function sumarTotalPrecios(){
      
     })
   
+
     //sumamos los precios a precio de venta
     let precio_total_pedido = arreglo_precios.reduce(sumarPrecios)
     function sumarPrecios(total, precio_producto){
         return parseInt(total)+parseInt(precio_producto);
     }
 
- 
     
     //$('#total_venta').attr('total_sin_inpuesto', precio_total_pedido)
 
     const total_pagar = Number(precio_total_pedido)
-    
+
     const precio_formateado = $.number(total_pagar);
     $('#total_venta').text(precio_formateado,2)
+
+  
+  
    
+    //aqui aplicamos el descuento
+    if($('#descuento').val()!=''){
+        descuento = ($('#descuento').val())/100;
+        
+    }else{
+        descuento = 0;
+    }
+
+    const total_exacto_pagar = total_pagar - total_pagar*descuento
+    const precio_formateado_total = $.number(total_exacto_pagar);
+    $('#total_pagar').text(precio_formateado_total,2)
     //asignar los datos a las variables que se enviaran por ajax para almacenar en la base de datos
   
     total = total_pagar;
@@ -441,10 +478,7 @@ function sumarTotalPrecios(){
     //$('#total_venta').number(true,2)
    //$('.precio_producto').number(true,2)
    listarProductos()
-  
-    
-   
-   
+
 }
 
 
@@ -604,7 +638,7 @@ $('.valor_efectivo').on('input',calcular_deuda)
 function calcular_cambio(){
 
     const valor_efectivo = $(this).val();
-    const total_venta = parseFloat($('#total_venta').text().replace(/,/g, ''));
+    const total_venta = parseFloat($('#total_pagar').text().replace(/,/g, ''));
 
     const cambio_efectivo = valor_efectivo-total_venta
    
@@ -616,7 +650,7 @@ function calcular_deuda(){
 
     const valor_efectivo = $(this).val();
    
-    const total_venta = parseFloat($('#total_venta').text().replace(/,/g, ''));
+    const total_venta = parseFloat($('#total_pagar').text().replace(/,/g, ''));
 
     const cambio_efectivo = valor_efectivo-total_venta
 
@@ -627,7 +661,7 @@ function calcular_deuda(){
 //cambio en transaccion
 $('.contenedor_metodo_pago').on('input', 'input.valor_efectivo', function(){
     const valor_efectivo = $(this).val();
-    const total_venta = parseFloat($('#total_venta').text().replace(/,/g, ''));
+    const total_venta = parseFloat($('#total_pagar').text().replace(/,/g, ''));
 
     const cambio_efectivo = valor_efectivo-total_venta
    
@@ -711,7 +745,7 @@ $('#formulario_editar').submit(validar_enviar);
 function validar_enviar(e){
  
    metodo_pago = $('#metodo_pago').val();
-   console.log(metodo_pago)
+
    e.preventDefault();
     $('#alerta').empty()
     if(!($('.productosVenta').children().length > 0)){
@@ -766,7 +800,7 @@ function validar_enviar(e){
             $('#alerta').append('<div class="alert alert-danger text-center">porfavor introduzca un valor en efectivo</div>"')
             return;
         }
-        if(valor_efectivo<total){
+        if(valor_efectivo<(total-total*descuento)){
             $('#alerta').append('<div class="alert alert-danger text-center">su efectivo no es suficiente</div>"')
             return;
         }
@@ -775,7 +809,8 @@ function validar_enviar(e){
     if(metodo_pago=='credito'){
         abono = $('.valor_abono').val();
         deuda = $('.valor_deuda').val();
-        
+  
+
         if(abono == "" || deuda ==""){
            
             $('#alerta').append('<div class="alert alert-danger text-center">porfavor introduzca un valor de abono sin importar si es cero</div>"')
@@ -797,7 +832,8 @@ function validar_enviar(e){
 
 function enviarDatos(){
     $('.btn_crear_venta').prop('disabled',true)
- 
+
+
    //console.log(productos)
    cedula_cliente = $('#cedula_cliente').val()
    nombre_cliente = $('#nombre_cliente').val()
@@ -810,7 +846,8 @@ function enviarDatos(){
     datos.append('id_vendedor',id_vendedor)
     datos.append('productos',productos)
     datos.append('deuda',deuda)
-    datos.append('total',total)
+    datos.append('total',(total-total*descuento))
+    datos.append('descuento',descuento)
     datos.append('total_costo',total_precio_de_compra)
     datos.append('metodo_pago',metodo_pago)
     datos.append('nombre_cliente',nombre_cliente)
@@ -818,6 +855,7 @@ function enviarDatos(){
     datos.append('telefono_cliente',telefono_cliente)
     datos.append('direccion_cliente',direccion_cliente)
     datos.append('correo_cliente',correo_cliente)
+
 
     if(metodo_pago == 'credito'){
         datos.append('id_cliente',id_cliente);

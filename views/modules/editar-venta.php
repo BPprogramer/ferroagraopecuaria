@@ -140,6 +140,7 @@
                                                     <tr>
                                                         
                                                         <th>Total</th>
+                                                        <th>Total Pagar</th>
                                                     </tr>
                                                 
                                                 </thead>
@@ -150,6 +151,16 @@
                                                             <div class="input-group input-group-lg">
                                                                     <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
                                                                     <div style="width:150px" type="number" class="form-control input-lg" min="0" id="total_venta" name="total" style="background-color:#f9f9f9;"><?php echo $venta['total'] ?></div>
+                                                                   
+                                                            
+                                                            </div>
+                                                        </td>  
+                                                        <td style="">
+                                                            <div class="input-group input-group-lg">
+                                                                    <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+                                                                   <input type="number" class="input-group-addon" value = "<?php echo $venta['descuento']*100 ?>" id ="descuento" style="width:80px" placeholder="%">
+                                                                
+                                                                    <div type="number" descuento_editar = "<?php echo $venta['descuento'] ?>"  style="width:150px" class="form-control input-lg" min="0" id="total_pagar" name="total" style="background-color:#f9f9f9;"><?php //echo $venta['total']?></div>
                                                                    
                                                             
                                                             </div>
@@ -217,7 +228,7 @@
                                                 <div class="col-xs-6 contenedor_valor_deuda" style="padding-left:0px ">
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                                                        <input type="text" value="<?php echo $venta['total']?>" class="form-control valor_deuda" placeholder="deuda" readonly style="font-size:20px">
+                                                        <input type="text" value="<?php echo $venta['deuda']?>" class="form-control valor_deuda" placeholder="deuda" readonly style="font-size:20px">
                                                     </div>
                                                 </div>
                                             <?php }?>

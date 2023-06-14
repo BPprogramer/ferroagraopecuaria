@@ -6,33 +6,18 @@
 				<li class="active">
 					<a href="inicio">
 						<i class="fa fa-home"></i>
-						<span>Inicio</span>
+						<span>&nbsp;&nbsp; Inicio</span>
 					</a>
 				</li>
 				
 				<li>
 					<a href="usuarios">
 						<i class="fa fa-user"></i>
-						<span>Usuarios</span>
+						<span>&nbsp;&nbsp;Usuarios</span>
 					</a>
 				</li>
 			<?php }?>
-			<?php if($_SESSION['perfil']=='administrador' || $_SESSION['perfil']=='especial'){?>
-				<li>
-					<a href="categorias">
-						<i class="fas fa-tags"></i>
-
-						<span>Categorias</span>
-					</a>
-				</li>
-				<li>
-					<a href="productos">
-
-						<i class="fas fa-shopping-bag"></i>
-						<span>productos</span>
-					</a>
-				</li>
-			<?php }?>
+		
 			<?php if($_SESSION['perfil']=='administrador' || $_SESSION['perfil']=='vendedor'){?>
 				
 				
@@ -43,7 +28,7 @@
 
 
 
-						<span>Creditos</span>
+						<span>&nbsp;&nbsp;Creditos</span>
 					</a>
 				</li>
 			
@@ -55,38 +40,17 @@
 				<li>
 					<a href="clientes">
 						<i class="fa fa-users"></i>
-						<span>Clientes</span>
+						<span>&nbsp;&nbsp;Clientes</span>
 					</a>
 				</li>
-				<?php if($_SESSION['perfil']=='administrador'){?>
-					<li>
-						<a href="proveedores">
-							<i class="fas fa-truck"></i>
-							<span>Proveedores</span>
-						</a>
-					</li>
-					<li>
-						<a href="compras">
-							<i class="fas fa-shopping-basket"></i>
-							<span>Compras</span>
-						</a>
-					</li>
-				<?php }?>
-				<?php if($_SESSION['perfil']=='administrador' || $_SESSION['perfil']=='vendedor'){?>
-					<li>
-						<a href="cajas">
-							<i class="fas fa-cash-register"></i>
-							<span>Cajas</span>
-						</a>
-					</li>
-				<?php }?>
+			
 				
 				
 				<li class="treeview">
 					<a href="#">
 						<i class="fas fa-shopping-cart"></i>
 
-						<span>Ventas</span>
+						<span>&nbsp;&nbsp;Ventas</span>
 						<span class="pull-right-container">
 							<i class="fa fa-angle-left pull-right"></i>
 						</span>
@@ -107,22 +71,65 @@
 						</li>
 			<?php }?>
 				<?php if($_SESSION['perfil']=='administrador'){?>
-					<li>
-						<a href="reporte-ventas">
-							<i class="fa fa-circle-o"></i>
-							<span>Reporte ventas</span>
-						</a>
-					</li>
-				</ul>
+						<li>
+							<a href="reporte-ventas">
+								<i class="fa fa-circle-o"></i>
+								<span>Reporte ventas</span>
+							</a>
+						</li>
+					</ul>
 				
 				
 			<?php }else{?>
-				</ul>
-				<?php }?>	
+					</ul>
+				</li>
+			<?php }?>	
+			</li>
+			<?php if($_SESSION['perfil']=='administrador' || $_SESSION['perfil']=='vendedor'){?>
+
+					<li>
+						<a href="cajas">
+							<i class="fas fa-cash-register"></i>
+							<span>&nbsp;&nbsp;Cajas</span>
+						</a>
+					</li>
+			<?php }?>
+
+			<?php if($_SESSION['perfil']=='administrador'){?>
+					<li>
+						<a href="proveedores">
+							<i class="fas fa-truck"></i>
+							<span>&nbsp;&nbsp;Proveedores</span>
+						</a>
+					</li>
+					<li>
+						<a href="compras">
+							<i class="fas fa-shopping-basket"></i>
+							<span>&nbsp;&nbsp;Compras</span>
+						</a>
+					</li>
 
 				
-			</li>
+				<?php }?>
+
+			<?php if($_SESSION['perfil']=='administrador'){?>
+				<li>
+					<a href="productos">
+
+						<i class="fas fa-shopping-bag"></i>
+						<span>&nbsp;&nbsp;productos</span>
+					</a>
+				</li>
+				<li>
+					<a href="categorias">
+						<i class="fas fa-tags"></i>
+
+						<span>&nbsp;&nbsp;Categorias</span>
+					</a>
+				</li>
 			
+			<?php }?>
+
 
 		</ul>
 	</section>

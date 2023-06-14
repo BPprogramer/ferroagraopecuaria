@@ -77,12 +77,15 @@
                                   <!--   <button type="button" class="btn btn-default hidden-lg btnAgregarProducto">Agregar Producto</button> -->
                                     <hr>
                                     <div class="row">
-                                        <div class="col-12 pull-right">
+                                        <div class="col-12">
                                             <table class="table">
                                                 <thead>
                                                     <tr>
                                                        
-                                                        <th>Total</th>
+                                                        <th>Total Venta</th>
+                                                        <th>Total Pagar</th>
+                                                 
+                                                     
                                                     </tr>
                                                 
                                                 </thead>
@@ -96,16 +99,31 @@
                                                             
                                                             </div>
                                                         </td>  
+                                                        <td style="">
+                                                            <div class="input-group input-group-lg">
+                                                                    <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+                                                                   <input type="number" class="input-group-addon" id ="descuento" style="width:80px" placeholder="%">
+                                                                
+                                                                    <div type="number" style="width:150px" class="form-control input-lg" min="0" id="total_pagar" name="total" style="background-color:#f9f9f9;">0</div>
+                                                                   
+                                                            
+                                                            </div>
+                                                        </td>  
+                                                     
+                                                      
                                                     </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
+                                    
                                     <hr>
                                    
                                     <!-- metodos de pago-->
                                     
-                                
+                                    <div class="row">
+                                        
+                                    </div>
                                     <div class="row">
                                         <div class="col-xs-12 col-md-4" style="padding-right:20px">
                                             <div class="" ><!-- metod de pago -->
