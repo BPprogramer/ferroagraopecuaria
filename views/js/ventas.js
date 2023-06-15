@@ -20,7 +20,7 @@ let descuento = 0;
 // }else{
 //     descuento = 0;
 // }
-console.log(descuento)
+
 let total;
 
 let metodo_pago='efectivo';
@@ -400,7 +400,7 @@ $('.productosVenta').on('input', 'input.cantidad_producto', function(){
    
 })
 
-//agregar descuento
+//agregar descuento con porcentaje
 $('#descuento').on('input',aplicarDescuento);
 
 function aplicarDescuento(){
@@ -412,8 +412,36 @@ function aplicarDescuento(){
   
 }
 
+//agregar descuento directamente en el input del preciio
+$('#total_pagar').on('input',calcularPorcentajeDescuento);
+
+function calcularPorcentajeDescuento(){
+    $('.valor_abono').val(0)
+    $('.valor_deuda').val(0)
+    $('.valor_efectivo').val(0)
+    $('.cambio_efectivo').val(0)
+  
+   
+
+ 
+    const total_pagar_input = $(this).val().replace(/,/g, ''); //valor cond escuento
+    total = total_pagar_input;
+    const importe_venta = $('#total_venta').text().replace(/,/g, ''); //valor de la venta sin descuento
+
+    $('#descuento').val((100-100*total_pagar_input/importe_venta).toFixed(2));
+    descuento = ((100-100*total_pagar_input/importe_venta).toFixed(2))/100;
 
 
+    const total_pagar = Number(total_pagar_input)
+    const precio_formateado = $.number(total_pagar);
+    $(this).val(precio_formateado)
+  
+
+    // $(this).val($.number(total_pagar,2))
+
+    //sumarTotalPrecios();
+  
+}
 //sumar todos los precios
 function sumarTotalPrecios(){
    
@@ -426,7 +454,7 @@ function sumarTotalPrecios(){
 
     if(precio_producto.length==0){
         $('#total_venta').text(0)
-        $('#total_pagar').text(0)
+        $('#total_pagar').val(0)
         total=0;
         return;
     }
@@ -434,14 +462,16 @@ function sumarTotalPrecios(){
     precio_producto.each(function(index,producto){
         const precio_producto = parseFloat($(producto).text().replace(/,/g, ''));
       
-       
+   
         arreglo_precios.push(precio_producto)
+  
      
     })
   
 
     //sumamos los precios a precio de venta
     let precio_total_pedido = arreglo_precios.reduce(sumarPrecios)
+ 
     function sumarPrecios(total, precio_producto){
         return parseInt(total)+parseInt(precio_producto);
     }
@@ -465,18 +495,27 @@ function sumarTotalPrecios(){
         descuento = 0;
     }
 
+
+
     const total_exacto_pagar = total_pagar - total_pagar*descuento
-    const precio_formateado_total = $.number(total_exacto_pagar);
-    $('#total_pagar').text(precio_formateado_total,2)
+
+    const redondeado = Math.round(total_exacto_pagar / 100) *100;
+    const precio_formateado_total = $.number(redondeado);
+ 
+
+
+    $('#total_pagar').val(precio_formateado_total)
+
     //asignar los datos a las variables que se enviaran por ajax para almacenar en la base de datos
   
-    total = total_pagar;
+    total = redondeado;
 
    
    
 
     //$('#total_venta').number(true,2)
    //$('.precio_producto').number(true,2)
+
    listarProductos()
 
 }
@@ -638,7 +677,7 @@ $('.valor_efectivo').on('input',calcular_deuda)
 function calcular_cambio(){
 
     const valor_efectivo = $(this).val();
-    const total_venta = parseFloat($('#total_pagar').text().replace(/,/g, ''));
+    const total_venta = parseFloat($('#total_pagar').val().replace(/,/g, ''));
 
     const cambio_efectivo = valor_efectivo-total_venta
    
@@ -650,9 +689,10 @@ function calcular_deuda(){
 
     const valor_efectivo = $(this).val();
    
-    const total_venta = parseFloat($('#total_pagar').text().replace(/,/g, ''));
-
+    const total_venta = parseFloat($('#total_pagar').val().replace(/,/g, ''));
+    
     const cambio_efectivo = valor_efectivo-total_venta
+
 
     $('.valor_deuda').val(cambio_efectivo)
 
@@ -661,7 +701,7 @@ function calcular_deuda(){
 //cambio en transaccion
 $('.contenedor_metodo_pago').on('input', 'input.valor_efectivo', function(){
     const valor_efectivo = $(this).val();
-    const total_venta = parseFloat($('#total_pagar').text().replace(/,/g, ''));
+    const total_venta = parseFloat($('#total_pagar').val().replace(/,/g, ''));
 
     const cambio_efectivo = valor_efectivo-total_venta
    
@@ -800,7 +840,9 @@ function validar_enviar(e){
             $('#alerta').append('<div class="alert alert-danger text-center">porfavor introduzca un valor en efectivo</div>"')
             return;
         }
-        if(valor_efectivo<(total-total*descuento)){
+        console.log(valor_efectivo)
+        console.log(total)
+        if(valor_efectivo<(total)){
             $('#alerta').append('<div class="alert alert-danger text-center">su efectivo no es suficiente</div>"')
             return;
         }
@@ -831,7 +873,10 @@ function validar_enviar(e){
 
 
 function enviarDatos(){
-    $('.btn_crear_venta').prop('disabled',true)
+   $('.btn_crear_venta').prop('disabled',true)
+
+    console.log(total)
+    console.log(deuda)
 
 
    //console.log(productos)
@@ -840,13 +885,14 @@ function enviarDatos(){
    telefono_cliente = $('#telefono_cliente').val()
    direccion_cliente = $('#direccion_cliente').val()
    correo_cliente = $('#correo_cliente').val()
+   console.log(total)
     const datos = new FormData();
     datos.append('codigo',codigo)
     
     datos.append('id_vendedor',id_vendedor)
     datos.append('productos',productos)
     datos.append('deuda',deuda)
-    datos.append('total',(total-total*descuento))
+    datos.append('total',(total))
     datos.append('descuento',descuento)
     datos.append('total_costo',total_precio_de_compra)
     datos.append('metodo_pago',metodo_pago)

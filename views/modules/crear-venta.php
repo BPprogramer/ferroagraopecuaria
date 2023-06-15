@@ -19,7 +19,7 @@
             <div class="col-md-5 col-12">
                 <div class="box box-success">
                     <div class="box-header with-border">
-                        <form  method="post" class="formulario_crear" id="formulario">
+                        <form  method="post" class="formulario_crear" id="formulario" novalidate>
                             <div class="box-body">
                                 <div class="box">
 
@@ -102,10 +102,19 @@
                                                         <td style="">
                                                             <div class="input-group input-group-lg">
                                                                     <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                                                                   <input type="number" class="input-group-addon" id ="descuento" style="width:80px" placeholder="%">
+                                                                  
                                                                 
-                                                                    <div type="number" style="width:150px" class="form-control input-lg" min="0" id="total_pagar" name="total" style="background-color:#f9f9f9;">0</div>
-                                                                   
+                                                                    <input type="text" value="0" style="width:150px" class="form-control input-lg"  id="total_pagar" name="total" style="background-color:#f9f9f9;">
+                                                                    
+                                                            
+                                                            </div>
+                                                         
+                                                            <div class="input-group input-group-lg">
+                                                                    <span class="input-group-addon" style="display: inline-block;margin-right:11px"><i class="fa fa-percent"></i></span>
+                                                                  
+                                                                
+                                                                    <input type="number" class="input-group-addon" id ="descuento" style="width:150px;border-left: 1px solid #d2d6de;ackground-color:#f9f9f9; text-align:left" placeholder="0">
+                                                                    
                                                             
                                                             </div>
                                                         </td>  
