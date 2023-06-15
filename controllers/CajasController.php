@@ -60,7 +60,7 @@
             $fecha_cierre = $args['fecha_final'];
             $estado = 1;
 
-            $datos_caja_cierre = ['estado'=> $estado, 'efectivo_ventas'=>$efectivo_ventas['total'],'creditos'=>$creditos, 'efectivo_cierre'=>$efectivo_cierre,'fecha_cierre'=>$fecha_cierre];
+            $datos_caja_cierre = ['estado'=> $estado, 'efectivo_ventas'=>$efectivo_ventas['total']+$pagos['total'],'creditos'=>$creditos, 'efectivo_cierre'=>$efectivo_cierre,'fecha_cierre'=>$fecha_cierre];
            
             $actualizar_caja = new Caja();
             $respuesta = $actualizar_caja->actualizarCaja($datos_caja_cierre, $id);
