@@ -41,11 +41,11 @@ if($('.creditos').length>0){
 
         //validar el fomrularoi al dar el boton enviar
         $('.formulario_pagar_deuda').submit(function(e){
-            console.log(cantidad_pagar)
+          
             e.preventDefault();
             $('.alerta').remove()
             const pago = $('.contenido_pago_deuda').val();
-            console.log(pago)
+            //console.log(pago)
             if(pago=='' || pago<0){
                 $('<div class="alert alert-danger text-center alerta">PORFAVOR INSERTE UN VALOR VALIDO</div>').insertAfter($('.penultimo'))
             }else if(parseInt(pago)>parseInt(cantidad_pagar)){
@@ -65,6 +65,7 @@ if($('.creditos').length>0){
                 }).then((result) => {
                   
                     if (result.isConfirmed) {
+                        $('#btnPagar').prop('disabled',true);
                         
                         const valor_pago = $('.contenido_pago_deuda').val()
                         const datos = new FormData();
@@ -79,6 +80,7 @@ if($('.creditos').length>0){
                             contentType:false,
                             dataType:'json',
                             success:function(req){
+                                console.log(req)
                                 if(req=='success'){
                                     Swal.fire({
                                         title: 'Pago Realizado Con exito',

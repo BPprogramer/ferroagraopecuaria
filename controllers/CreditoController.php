@@ -18,8 +18,14 @@
         }
         public static function pagoDeudas(){
       
+            $pago = new Pagos();
+            date_default_timezone_set('America/Bogota');
+            $datosPago = ['pago'=>$_POST['valor_pago'], 'fecha'=>date('Y-m-d H:i:s')];
+ 
+            $pago->crearPago($datosPago);
+
             $credito = Credito::consultarCredito('id',$_POST['id']);
-           
+            
             $codigo_vena = $credito['codigo_venta'];
             $deuda = $credito['deuda']-$_POST['valor_pago'];
            

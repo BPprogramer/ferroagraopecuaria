@@ -2,6 +2,7 @@
     require_once '../controllers/CajasController.php';
     require_once '../models/Caja.php';
     require_once '../models/Ventas.php';
+    require_once '../models/Pagos.php';
     require_once '../models/Conexion.php';
 
     class AjaxCajas{

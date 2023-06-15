@@ -51,10 +51,12 @@
             $args['fecha_final']  = date('Y-m-d H:i:s');
             $efectivo_ventas = Ventas::consultarVentasPorFecha($args, 'total');
             $creditos_array = Ventas::consultarVentasPorFecha($args, 'deuda');
+            $pagos = Pagos::consultarPagos($args);
+        
             $creditos = $creditos_array['total'];
            
             $efectivo_apertura = $caja_actual['efectivo_apertura'];
-            $efectivo_cierre = $efectivo_ventas['total']+$efectivo_apertura-$creditos;
+            $efectivo_cierre = $efectivo_ventas['total']+$efectivo_apertura-$creditos +$pagos['total'];
             $fecha_cierre = $args['fecha_final'];
             $estado = 1;
 

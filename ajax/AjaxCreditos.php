@@ -4,6 +4,7 @@
     require_once '../models/Ventas.php';
     require_once '../models/Usuarios.php';
     require_once '../models/Credito.php';
+    require_once '../models/Pagos.php';
 
     class AjaxTablaCreditos{
         public function consultarDatosVenta(){

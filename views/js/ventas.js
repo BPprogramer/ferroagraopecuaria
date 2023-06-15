@@ -909,7 +909,7 @@ function enviarDatos(){
         
     }
     if(window.location.href.indexOf('crear-venta')!==-1){ //zonasoftware.online
-        console.log('creando venta')
+   
         const create = 'create';
         datos.append('create',create)
         console.log('haciendo ajax')
