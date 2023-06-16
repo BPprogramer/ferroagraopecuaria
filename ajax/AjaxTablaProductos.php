@@ -12,7 +12,8 @@
     class AjaxTablaProductos{
         public function mostrarTablaProductos(){
 
-            $productos = ProductosController::consultarProductos(null, null);
+            //$productos = ProductosController::consultarProductos(null, null);
+            $productos = ProductosController::consultarProductosDes('id');
             $i=0;
             
             
