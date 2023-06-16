@@ -63,7 +63,7 @@
             // $imagen = $_FILES;
            $imagen = "views/img/productos/default/anonymous.png";
            $parttern_1 = '/^[0-9.]+$/';
-           $parttern_2 = '/^[-a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ \/]+$/';
+           $parttern_2 = '/^[-a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ .,\/]+$/';
 
            $id_proveedor = filter_var($id_proveedor, FILTER_VALIDATE_INT);
            
