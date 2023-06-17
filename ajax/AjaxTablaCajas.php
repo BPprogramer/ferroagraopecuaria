@@ -22,10 +22,12 @@
                           
                             $btn_estado =  "<div>";
                             $btn_estado .= "<button class='btn btn-success btn-xs' id='cerrar_caja' idCaja='".$caja['id']."' style='font-size:20px'>Abierta</button>";
+                            $btn_estado .= "<button class='btn btn-primary btnInfoCaja' idCaja='".$caja['id']."' data-toggle='modal' data-target='#infoCaja'><i class='fa fa-search' ></i></button>";
                             $btn_estado .=  "</div>";
                         }else{
                             $btn_estado =  "<div>";
                             $btn_estado .= "<button class='btn btn-secondary btn-xs' id='caja_cerrada'  style='font-size:20px'>Cerrada</button>";
+                            $btn_estado .= "<button class='btn btn-primary btnInfoCaja' idCaja='".$caja['id']."' data-toggle='modal' data-target='#infoCaja'><i class='fa fa-search' ></i></button>";
                             $btn_estado .=  "</div>";
                             
                         }

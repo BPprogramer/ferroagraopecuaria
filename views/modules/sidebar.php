@@ -94,6 +94,31 @@
 						</a>
 					</li>
 			<?php }?>
+				
+			<li class="treeview">
+					<a href="#">
+						<i class="fas fa-money-bill-wave"></i>
+
+						<span>&nbsp;&nbsp;Transacciones</span>
+						<span class="pull-right-container">
+							<i class="fa fa-angle-left pull-right"></i>
+						</span>
+					</a>
+					<ul class="treeview-menu">
+						<li>
+							<a href="ingresos">
+								<i class="fa fa-circle-o"></i>
+								<span>Ingresos</span>
+							</a>
+						</li>
+						<li>
+							<a href="egresos">
+								<i class="fa fa-circle-o"></i>
+								<span>Egresos</span>
+							</a>
+						</li>
+					</ul>
+			</li>
 
 			<?php if($_SESSION['perfil']=='administrador'){?>
 					<li>

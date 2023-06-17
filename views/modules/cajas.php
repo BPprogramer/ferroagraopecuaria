@@ -84,6 +84,31 @@
 </div>
 
 
+<!-- info ICajas-->
+<div id="infoCaja" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form role="form" class="" novalidate>
+                <div class="modal-header" style="background-color: #3c8dbc; color:white">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Más Información del Caja</h4>
+                </div>
+                <div class="modal-body">
+                    <ul class="info_caja list-group">
+
+                    </ul>
+
+                </div>
+              
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Cerrar</button>
+                    
+                </div>
+            </form>
+        </div>
+  </div>
+</div>
+
 
 
 

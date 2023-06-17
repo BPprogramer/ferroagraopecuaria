@@ -12,6 +12,53 @@ $(document).ready(function(){
             submitForm();
             formatearEfectivo();
             cerrarCaja();
+            $(document).on('click','.btnInfoCaja',  infoCaja);
+        }
+
+        function infoCaja(){
+            $('.info_caja').empty();
+            const id_info_egreso = ($(this).attr('idCaja'))
+            datos = new FormData();
+            datos.append('id_caja_info',id_info_egreso);
+            $.ajax({
+                url: 'ajax/AjaxCajas.php',
+                data:datos,
+                method:'POST',
+                processData:false,
+                cache:false,
+                contentType:false,
+                dataType:'json',
+                success:function(req){
+                   console.log(req)
+                   moment.locale('es');
+            
+                    const fecha_apertura = moment(req['fecha_apertura']).format("D [de] MMMM [del] YYYY, [Hora] h:mm a");
+                    const fecha_cierre = moment(req['fecha_cierre']).format("D [de] MMMM [del] YYYY, [Hora] h:mm a");
+                    const pagos = req['efectivo_cierre']-req['efectivo_ventas']-req['efectivo_apertura']+req['creditos']-req['ingreso']+req['egreso'];
+                   
+                    $('.info_caja').append(`
+              
+                       
+                        <li class="list-group-item text-lg" style="font-size:20px">Efectivo en Caja: <strong>${$.number(req['efectivo_cierre'])}</strong></li>
+                        <li class="list-group-item text-lg" style="font-size:20px">Efectivo Inicial: <strong>${$.number(req['efectivo_apertura'])}</strong></li>
+                        <li class="list-group-item text-lg" style="font-size:20px">Ventas: <strong>${$.number(req['efectivo_ventas'])}</strong></li>
+                        <li class="list-group-item text-lg" style="font-size:20px">Creditos: <strong>${$.number(req['creditos'])}</strong></li>
+                        <li class="list-group-item text-lg" style="font-size:20px">Pagos: <strong>${$.number(pagos)}</strong></li>
+                        <li class="list-group-item text-lg" style="font-size:20px">Ingresos: <strong>${$.number(req['ingreso'])}</strong></li>
+                        <li class="list-group-item text-lg" style="font-size:20px">Egresos: <strong>${$.number(req['egreso'])}</strong></li>
+                    
+                  
+                      
+                        <li class="list-group-item text-lg" style="font-size:20px">fecha apertura: <strong>${fecha_apertura}</strong></li>
+                        <li class="list-group-item text-lg" style="font-size:20px">fecha cierre: <strong>${fecha_cierre}</strong></li>
+             
+                    
+                    `)
+                },
+                error:function(error){
+                    console.log(error.responseText)
+                }
+            })
         }
 
         //cerrar la caja al dar click
@@ -74,7 +121,7 @@ $(document).ready(function(){
                                 })
                         },
                         error:function(error){
-                            console.log('asddf')
+                           
                             console.log(error.responseText)
                         }
                     })

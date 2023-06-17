@@ -1,4 +1,7 @@
 <?php '../../controllers/ClienteControl'?>
+<?php if(!$_SESSION['login']){?>
+    <script>window.location='inicio'</script>
+<?php }?> 
 <div class="content-wrapper">
    
     <section class="content-header">
