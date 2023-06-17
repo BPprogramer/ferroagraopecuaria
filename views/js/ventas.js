@@ -840,9 +840,8 @@ function validar_enviar(e){
             $('#alerta').append('<div class="alert alert-danger text-center">porfavor introduzca un valor en efectivo</div>"')
             return;
         }
-        console.log(valor_efectivo)
-        console.log(total)
-        if(valor_efectivo<(total)){
+       
+        if(parseInt(valor_efectivo)<parseInt(total)){
             $('#alerta').append('<div class="alert alert-danger text-center">su efectivo no es suficiente</div>"')
             return;
         }

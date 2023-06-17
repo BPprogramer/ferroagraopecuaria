@@ -34,7 +34,7 @@ $(document).ready(function(){
             
                     const fecha_apertura = moment(req['fecha_apertura']).format("D [de] MMMM [del] YYYY, [Hora] h:mm a");
                     const fecha_cierre = moment(req['fecha_cierre']).format("D [de] MMMM [del] YYYY, [Hora] h:mm a");
-                    const pagos = req['efectivo_cierre']-req['efectivo_ventas']-req['efectivo_apertura']+req['creditos']-req['ingreso']+req['egreso'];
+                    const pagos = parseInt(req['efectivo_cierre'])-parseInt(req['efectivo_ventas'])-parseInt(req['efectivo_apertura'])+parseInt(req['creditos'])-parseInt(req['ingreso'])+parseInt(req['egreso']);
                    
                     $('.info_caja').append(`
               
