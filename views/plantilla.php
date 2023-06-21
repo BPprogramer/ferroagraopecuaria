@@ -39,7 +39,7 @@
 
   <!-- Font Awesome -->
  
-  <script src="https://kit.fontawesome.com/a3e5ca3374.js" crossorigin="anonymous"></script>
+
 
    <!-- <link rel="stylesheet" href="views/bower_components/font-awesome/css/font-awesome.min.css"> -->
 
@@ -230,6 +230,6 @@ CUERPO DOCUMENTO sidebar-collapse
     <script src="views/js/egresos.js"></script>
 
     <script src="views/plugins/jquery_number/jquerynumber.min.js"></script>
-
+    <script src="https://kit.fontawesome.com/a3e5ca3374.js" crossorigin="anonymous"></script>
 </body>
 </html>
