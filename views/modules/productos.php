@@ -104,7 +104,7 @@
                         <div class="form-group row">
                             <div class="col-xs-12 col-sm-6 mb-2" style="margin-bottom: 10px;">
                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-caret-down"></i></span>
+                                    <span class="input-group-addon"><i class="fa fa-caretup-down"></i></span>
                                     <input type="number" class="form-control input-lg" name="stock_minimo" id="stock_minimo" placeholder="stock mínimo" min="0" >
                                 </div>
                             </div>
@@ -304,7 +304,7 @@
         </div>
   </div>
 </div>
-<!-- editar datos del cliente -->
+
 <div id="editarStock" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -317,10 +317,17 @@
                     <div class="box-body">
                         <div class="form-group">
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <span class="input-group-addon"><i class="fa fa-check"></i></span>
                                 <input type="number" class="form-control input-lg" name="editar_stock" id="editar_stock_producto" placeholder="ingresa el stock adquirido">
                             </div>
+                           
                         </div> 
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-arrow-up"></i></span>
+                                <input type="text" class="form-control input-lg"  id="nuevo_precio_compra" placeholder="ingresa el precio de Compra">
+                            </div>
+                        </div>
                    
 
                     </div>

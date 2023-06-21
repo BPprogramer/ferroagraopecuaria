@@ -15,27 +15,31 @@
 
         public static function agregarStock(){
            
-            $stock =  $_POST['agregar_stock'];
-            $stock_actual = $_POST['stock_actual'];
-            $id = $_POST['id_producto_editar'];
-            $parttern = '/^\d+$/';
-            if($stock == ''){
-                return 'empty';
-            }
-            if(!preg_match($parttern, $stock)){
+            if(!is_numeric($_POST['id_producto_editar_stock'])){
                 return 'no_validate';
             }
-            if(!preg_match($parttern, $stock_actual)){
+            if(!is_numeric($_POST['precio_compra_final'])){
                 return 'no_validate';
             }
-            if(!preg_match($parttern, $id)){
+            if(!is_numeric($_POST['precio_venta_final'])){
                 return 'no_validate';
             }
+            if(!is_numeric($_POST['agregar_stock'])){
+                return 'no_validate';
+            }
+            // if(!preg_match($parttern, $stock_actual)){
+            //     return 'no_validate';
+            // }
+            // if(!preg_match($parttern, $id)){
+            //     return 'no_validate';
+            // }
      
-            $args['id'] = $id;
-            $args['stock'] = $stock+$stock_actual;
-      
-         
+            $args['id'] = htmlspecialchars($_POST['id_producto_editar_stock']);
+            $args['stock'] = htmlspecialchars($_POST['agregar_stock']);
+            $args['precio_compra'] = htmlspecialchars($_POST['precio_compra_final']);
+            $args['precio_venta'] = htmlspecialchars($_POST['precio_venta_final']);
+              
+                
             $producto = new Productos();
             $respuesta = $producto->agregarStock($args);
             return $respuesta;

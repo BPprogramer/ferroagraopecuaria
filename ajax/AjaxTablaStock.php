@@ -35,7 +35,7 @@
             // }
             $productos_filtrados = [];
             foreach($productos_all as $key=>$producto){
-                if($producto['stock']>$producto['stock_minimo']){
+                if($producto['stock']>=$producto['stock_minimo']){
                     continue;
                 }
                 $productos_filtrados[] = $producto;
@@ -52,7 +52,7 @@
                       
   
                        
-                        $stock = "<button class='btn btn-danger' data-toggle='modal' data-target='#editarStock' id='btn_stock' idProducto='".$producto['id']."'>".$producto['stock']."</button>";
+                        $stock = "<button class='btn btn-danger' data-toggle='modal' data-target='#editarStock' id='btn_stock' id_producto_editar_stock='".$producto['id']."'>".$producto['stock']."</button>";
                         
                         
                         $datoJson.= '[

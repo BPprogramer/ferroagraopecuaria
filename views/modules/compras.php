@@ -44,7 +44,6 @@
 
 
 
-<!-- editar datos del cliente -->
 <div id="editarStock" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -58,9 +57,16 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                <input type="number" class="form-control input-lg" name="editar_stock" id="editar_stock" placeholder="ingresa el stock adquirido">
+                                <input type="number" class="form-control input-lg" name="editar_stock" id="editar_stock_producto" placeholder="ingresa el stock adquirido">
                             </div>
+                
                         </div> 
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <input type="text" class="form-control input-lg"  id="nuevo_precio_compra" placeholder="ingresa el precio de Compra">
+                            </div>
+                        </div>
                    
 
                     </div>

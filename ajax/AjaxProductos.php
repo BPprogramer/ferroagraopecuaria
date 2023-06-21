@@ -43,6 +43,7 @@
         }
 
         public function ajaxAgregarStock(){
+         
             $respuesta = ProductosController::agregarStock();
             echo json_encode($respuesta);
         }

@@ -82,9 +82,11 @@
             }
         }
         public function agregarStock($args){
- 
-            $stmt = Conexion::conectarDB()->prepare("UPDATE productos SET stock = :stock WHERE id = :id");
+    
+            $stmt = Conexion::conectarDB()->prepare("UPDATE productos SET stock = :stock, precio_compra=:precio_compra, precio_venta=:precio_venta WHERE id = :id");
             $stmt->bindParam(":stock", $args['stock'],PDO::PARAM_STR);
+            $stmt->bindParam(":precio_compra", $args['precio_compra'],PDO::PARAM_STR);
+            $stmt->bindParam(":precio_venta", $args['precio_venta'],PDO::PARAM_STR);
             $stmt->bindParam(":id", $args['id'],PDO::PARAM_STR);
             if($stmt->execute()){
                 return 'success';
