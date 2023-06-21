@@ -47,16 +47,16 @@ function calcularDatos(agregar_stock, nuevo_precio_compra){
 
 
     //aqui calculamos el precio de compra que se almacenara en la base de datos
-    const precio_compra_final = (parseInt(stock*precio_compra) + parseInt(agregar_stock*nuevo_precio_compra))/(parseInt(stock)+parseInt(agregar_stock));
+    const precio_compra_final = (parseFloat(stock*precio_compra) + parseFloat(agregar_stock*nuevo_precio_compra))/(parseFloat(stock)+parseFloat(agregar_stock));
  
     //ahora calculamos el porcentaje de venta que se tiene para este producto 
     const porcentaje_utilidad = (precio_venta*100/precio_compra)/100 - 1;
    
     //ahora calculamos el precio de venta final 
-    const precio_venta_final =  Math.round((parseInt(precio_compra_final)+parseInt(precio_compra_final*porcentaje_utilidad))/ 100) *100;
+    const precio_venta_final =  Math.round((parseFloat(precio_compra_final)+parseFloat(precio_compra_final*porcentaje_utilidad))/ 100) *100;
 
     //y el nuevo stock que seria el stock ingresado sumado al stock existente para actualizar la base de datos
-    const stock_nuevo = parseInt(agregar_stock)+parseInt(stock)
+    const stock_nuevo = parseFloat(agregar_stock)+parseFloat(stock)
  
     
     //preguntamos si enviamos la informacion
@@ -94,7 +94,7 @@ function validarInformacion(){
         return;
     }
   
-    calcularDatos(parseInt(agregar_stock), parseInt(nuevo_precio_compra));
+    calcularDatos(parseFloat(agregar_stock), parseFloat(nuevo_precio_compra));
 
 
 }
