@@ -24,8 +24,9 @@ function formaterPrecio(){
 }
 
 function submitFormulario(){
-    $('form').submit(function(e){
+    $('.formulario_editar_stock').submit(function(e){
        // $('#btnEditarStock').prop('disabled',true)
+       console.log('desde editar stocj')
         e.preventDefault();
         
         //validar infomracion
