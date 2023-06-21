@@ -56,7 +56,7 @@ function calcularDatos(agregar_stock, nuevo_precio_compra){
     const precio_venta_final =  Math.round((precio_compra_final+precio_compra_final*porcentaje_utilidad)/ 100) *100;
 
     //y el nuevo stock que seria el stock ingresado sumado al stock existente para actualizar la base de datos
-    const stock_nuevo = agregar_stock+stock
+    const stock_nuevo = parseInt(agregar_stock)+parseInt(stock)
  
     
     //preguntamos si enviamos la informacion

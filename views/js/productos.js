@@ -230,6 +230,7 @@ $('.form_agregar_producto').submit(function(e){
    if($('.alerta').length>0){
         $('.alerta').remove();
     }
+    $('.btnRegistrar').prop('disabled',true);
 
     const idCategoria = $('#idCategoria').val();
     const idProveedor = $('#idProveedor').val();
@@ -272,6 +273,7 @@ $('.form_agregar_producto').submit(function(e){
         processData: false,
         dataType: "json",
         success:function(req){
+            $('.btnRegistrar').prop('disabled',false);
             console.log(req)
             if(req==['imagen no compatible']){
                 $('.form_group_imagen').after('<div class="alert alert-danger text-center alerta">Imagen no Compatible</div>');
@@ -499,11 +501,12 @@ $('.form_editar_producto').submit(function(e){
     if($('.alerta').length>0){
         $('.alerta').remove()
      }
+     $('.btnEditarSubmit').prop('disabled',true);
 
     e.preventDefault();
      const datosProducto = [ $('#editar_descripcion').val(),$('#editar_stock').val(),$('#editar_precio_compra').val(),$('#editar_precio_venta').val()]
      if(datosProducto.some(dato=>dato=='')){
-         
+        $('.btnEditarSubmit').prop('disabled',false);
          $('.form_group_imagen_editar').after('<div class="alert alert-danger text-center alerta">Todos los Campos Son Obligatorios excepto la imagen</div>')
          return;
      }
@@ -548,7 +551,7 @@ $('.form_editar_producto').submit(function(e){
          processData: false,
          dataType: "json",
          success:function(req){
-            console.log(req)
+            $('.btnEditarSubmit').prop('disabled',false);
             if(req==['imagen no compatible']){
                 $('.form_group_imagen_editar').after('<div class="alert alert-danger text-center alerta">Imagen no Compatible</div>');
                 return;
@@ -561,7 +564,7 @@ $('.form_editar_producto').submit(function(e){
                 if($('.alerta').length>0){
                     $('.alerta').remove()
                  }
-                 $('.form_group_imagen_editar').after('<div class="alert alert-danger text-center alerta">No se Permiten caracteres especiales</div>')
+                 $('.form_group_imagen_editar').after('<div class="alert alert-danger text-center alerta">Hubo un error</div>')
                  return;
             }
             if(req=='success'){
