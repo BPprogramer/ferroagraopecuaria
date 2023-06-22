@@ -66,7 +66,7 @@ class imprimirFactura{
                     <td style="border:1px solid #666; background-color:white; width:120px">Producto</td>
                     <td style="border:1px solid #666; background-color:white; width:70px">S Mínimo</td>
                     <td style="border:1px solid #666; background-color:white; width:70px">S Mínimo</td>
-                    <td style="border:1px solid #666; background-color:white; width:70px">S Actual</td>
+                    <td style="border:1px solid #666; background-color:white; width:70px"><strong>S Actual</strong></td>
                     <td style="border:1px solid #666; background-color:white; width:120px">Proveedor</td>
                     <td style="border:1px solid #666; background-color:white; width:90px">Tel</td>
           
@@ -85,9 +85,9 @@ class imprimirFactura{
                 <table style="font-size:8px; padding:2px">
                     <tr>
                         <td style="border:1px solid #666; background-color:white; width:120px"> {$producto['descripcion']}</td>
-                        <td style="border:1px solid #666; background-color:white; width:70px">{$producto['stock_minimo']}</td>
-                        <td style="border:1px solid #666; background-color:white; width:70px">{$producto['stock_maximo']}</td>
-                        <td style="border:1px solid #666; background-color:white; width:70px">{$producto['stock']}</td>
+                        <td style="border:1px solid #666; background-color:white; width:70px; text-align:center">{$producto['stock_minimo']}</td>
+                        <td style="border:1px solid #666; background-color:white; width:70px; text-align:center">{$producto['stock_maximo']}</td>
+                        <td style="border:1px solid #666; background-color:white; width:70px; text-align:center"><strong>{$producto['stock']}</strong></td>
                         <td style="border:1px solid #666; background-color:white; width:120px"> {$producto['proveedor']['nombre']}</td>
                         <td style="border:1px solid #666; background-color:white; width:90px"> {$producto['proveedor']['telefono']}</td>
             
