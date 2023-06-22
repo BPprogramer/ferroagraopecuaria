@@ -61,14 +61,16 @@ class imprimirFactura{
         <br><br>
         
         
-            <table style="font-size:10px; padding:5px 10px">
+            <table style="font-size:9px; padding:2x">
                 <tr>
+          
+                    <td style="border:1px solid #666; background-color:white; width:30px; text-align:center">#</td>
                     <td style="border:1px solid #666; background-color:white; width:120px">Producto</td>
-                    <td style="border:1px solid #666; background-color:white; width:70px">S Mínimo</td>
-                    <td style="border:1px solid #666; background-color:white; width:70px">S Mínimo</td>
-                    <td style="border:1px solid #666; background-color:white; width:70px"><strong>S Actual</strong></td>
+                    <td style="border:1px solid #666; background-color:white; width:60px">S Mínimo</td>
+                    <td style="border:1px solid #666; background-color:white; width:60px">S Mínimo</td>
+                    <td style="border:1px solid #666; background-color:white; width:60px"><strong>S Actual</strong></td>
                     <td style="border:1px solid #666; background-color:white; width:120px">Proveedor</td>
-                    <td style="border:1px solid #666; background-color:white; width:90px">Tel</td>
+                    <td style="border:1px solid #666; background-color:white; width:80px">Tel</td>
           
                 </tr>
                
@@ -76,20 +78,23 @@ class imprimirFactura{
         EOF;
         $pdf->writeHTML($bloque_3, false, false, false, false, '');
         
+        $i = 0;
         foreach($this->productos_filtrados as $producto){
-          
+            $i++;
             $bloque_4 = <<<EOF
         
             
             
                 <table style="font-size:8px; padding:2px">
                     <tr>
+                      
+                        <td style="border:1px solid #666; background-color:white; width:30px; text-align:center"> {$i}</td>
                         <td style="border:1px solid #666; background-color:white; width:120px"> {$producto['descripcion']}</td>
-                        <td style="border:1px solid #666; background-color:white; width:70px; text-align:center">{$producto['stock_minimo']}</td>
-                        <td style="border:1px solid #666; background-color:white; width:70px; text-align:center">{$producto['stock_maximo']}</td>
-                        <td style="border:1px solid #666; background-color:white; width:70px; text-align:center"><strong>{$producto['stock']}</strong></td>
+                        <td style="border:1px solid #666; background-color:white; width:60px; text-align:center">{$producto['stock_minimo']}</td>
+                        <td style="border:1px solid #666; background-color:white; width:60px; text-align:center">{$producto['stock_maximo']}</td>
+                        <td style="border:1px solid #666; background-color:white; width:60px; text-align:center"><strong>{$producto['stock']}</strong></td>
                         <td style="border:1px solid #666; background-color:white; width:120px"> {$producto['proveedor']['nombre']}</td>
-                        <td style="border:1px solid #666; background-color:white; width:90px"> {$producto['proveedor']['telefono']}</td>
+                        <td style="border:1px solid #666; background-color:white; width:80px"> {$producto['proveedor']['telefono']}</td>
             
                     </tr>
                 
