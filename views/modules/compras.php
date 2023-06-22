@@ -15,11 +15,27 @@
         </ol>
     </section>
 
+
     <section class="content">
         <div class="box">
            <!--  <div class="box-header with-border">
                 <button class="btn btn-primary" data-toggle="modal" data-target="#agregarCliente">Agregar Cliente</button>
             </div> -->
+
+            <div class="box-header with-border" style="margin-bottom:20px">
+            
+
+              
+                <div class="box-tools pull-right">
+                
+                        <button class="btn btn-success btn_descargar_pdf" style="margin-top:5px">
+                            Descargar Pdf
+                        </button>
+                    
+                </div>
+                
+                
+            </div>
             <div class="box-body">
                 <table class="table table-bordered table-striped dt-responsive tablas tablaComprasPendientes" style="width:100%">
                     <thead>

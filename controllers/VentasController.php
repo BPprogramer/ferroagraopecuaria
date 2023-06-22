@@ -464,7 +464,7 @@
                         <td style='font-weight:bold; border:2px solid #000;'>COSTO UNITARIO</td>
                         <td style='font-weight:bold; border:2px solid #000;'>TOTAL</td>
                         <td style='font-weight:bold; border:2px solid #000;'>DEUDA</td>		
-                        <td style='font-weight:bold; border:2px solid #000;'>TOTAL - CREDITO</td>		
+                        <td style='font-weight:bold; border:2px solid #000;'>TOTAL SIN CREDITO</td>		
                         <td style='font-weight:bold; border:2px solid #000;'>METODO DE PAGO</td	
                         <td style='font-weight:bold; border:2px solid #000;'>FECHA</td>		
                     </tr>"
