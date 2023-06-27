@@ -18,7 +18,7 @@
 
     <section class="content">
         <div class="row">
-            <div class="col-md-5 col-12">
+            <div class="col-md-6 col-12">
                 <div class="box box-success">
                     <div class="box-header with-border">
                         <form  method="post" id="formulario_editar" novalidate>
@@ -96,7 +96,7 @@
                                             
                                             ?>
                                             <div class="row mb-4 rowVenta desktop"  style="margin-bottom:10px; padding:5px 15px">
-                                                <div class="col-sm-6" style="padding-right:10px">
+                                                <div class="col-sm-5" style="padding-right:10px">
                                                     <div class="input-group" style="padding-right:5px">
                                                         <span class="input-group-addon">
                                                             <button class="btn btn-danger btn-xs eliminarProductoVenta" id_producto_eliminar="<?php echo $producto->id ?>" type="button">
@@ -106,15 +106,18 @@
                                                         <input type="text" value="<?php echo $producto->descripcion ?>" id_producto="<?php echo $producto->id ?>" class="form-control descripcion_producto" id="descripcion_producto" name="agregar_producto" placeholder="descripcion  producto"> 
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6">
+                                                <div class="col-sm-7">
                                                     <div class="row">
-                                                        <div class="col-xs-6" class="contenido_cantidad">
+                                                        <div class="col-xs-3 contenido_cantidad">
                                                             <input type="number" value="<?php echo $producto->cantidad ?>" class="form-control cantidad_producto" stock_actual="<?php echo $respuesta_producto['stock']?>" stock="<?php echo $producto->cantidad+$respuesta_producto['stock']?>" id="cantidad_producto" name="cantidad_producto" min="1" placeholder="cantidad">
                                                         </div>
-                                                        <div class="col-xs-6 contenido_precio" style="padding-left:0px">
+                                                        <div class="col-xs-4" class="contenido_precio_unitario">
+                                                            <input type="number" value="<?php echo intval($producto->precio_total/$producto->cantidad) ?>" class="form-control"  id="precio_producto_unitario" >
+                                                        </div>
+                                                        <div class="col-xs-5 contenido_precio" style="padding-left:0px">
                                                             <div class="input-group">
                                                                 <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                                                                <div type="number" class="form-control precio_producto" id="precio_producto" name="precio_producto" style="background-color:#f9f9f9;" precioCompra = "<?php echo $respuesta_producto['precio_compra'] ?>" precioProducto = "<?php echo $respuesta_producto['precio_venta'] ?>"><?php echo number_format($producto->precio_total)?></div>
+                                                                <div type="number" class="form-control precio_producto" id="precio_producto" name="precio_producto" style="background-color:#f9f9f9;" precioCompra = "<?php echo $producto->precio_total ?>" precioProducto = "<?php echo intval($producto->precio_total/$producto->cantidad) ?>"><?php echo number_format($producto->precio_total)?></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -339,15 +342,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-7 col-12">
+            <div class="col-md-6 col-12">
                 <div class="box box-warning">
                     <div class="box-header with-border">
                         <div class="box-body">
                             <table class="table table-bordered table-striped dt-responsive tablas tablaProductosVentas" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Imagen</th>
+                                     
                                         <th>codigo</th>
                                        
                                         <th>Descripción</th>

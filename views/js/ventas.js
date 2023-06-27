@@ -153,7 +153,7 @@ $(".tablaProductosVentas").on('click', '.agregarProducto', function(){
             $(`.agregarProducto[idProducto=${id}]`).attr('disabled', true)
             $('.productosVenta').append(` 
                 <div class="row mb-4 rowVenta" style="margin-bottom:10px; padding:5px 15px">
-                    <div class="col-sm-6" style="padding-right:5px">
+                    <div class="col-sm-5" style="padding-right:5px">
                         <div class="input-group" style="padding-right:10px">
                             <span class="input-group-addon">
                                 <button class="btn btn-danger btn-xs eliminarProductoVenta" id_producto_eliminar="${id}" type="button">
@@ -163,12 +163,15 @@ $(".tablaProductosVentas").on('click', '.agregarProducto', function(){
                             <input type="text" value="${descripcion}" id_producto="${id}" class="form-control descripcion_producto" id="descripcion_producto" name="agregar_producto" placeholder="descripcion"  readonly> 
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-7">
                         <div class="row">
-                            <div class="col-xs-6" class="contenido_cantidad">
+                            <div class="col-xs-3 contenido_cantidad">
                                 <input type="number" value="1" class="form-control cantidad_producto" stock_actual="${stock-1}" stock="${stock}" id="cantidad_producto" name="cantidad_producto" min="1" placeholder="cantidad">
                             </div>
-                            <div class="col-xs-6 contenido_precio" style="padding-left:0px">
+                            <div class="col-xs-4" class="contenido_precio_unitario">
+                                <input type="number" value="${precio}" class="form-control"  id="precio_producto_unitario" >
+                            </div>
+                            <div class="col-xs-5 contenido_precio" style="padding-left:0px">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
                                     <div type="number" class="form-control precio_producto" id="precio_producto" name="precio_producto" style="background-color:#f9f9f9;" precioCompra=${precio_compra} precioProducto = ${precio}>${precio}</div>
@@ -183,7 +186,7 @@ $(".tablaProductosVentas").on('click', '.agregarProducto', function(){
        
             sumarTotalPrecios();   
        
-          //modificar el stock en el html
+          
            
  
          
@@ -198,6 +201,24 @@ $(".tablaProductosVentas").on('click', '.agregarProducto', function(){
 
 });
 
+//modificar precio de venta
+$(document).on('input', '#precio_producto_unitario',precio_modificado)
+function precio_modificado(){
+    const nuevo_precio = $(this).val()
+
+    $(this).parent().parent().children('.contenido_precio').children().children('.precio_producto')
+    const precio_producto = $(this).parent().parent().children('.contenido_precio').children().children('.precio_producto');
+    const cantidad = $(this).parent().parent().children('.contenido_cantidad').children('.cantidad_producto').val();
+    console.log(cantidad)
+    precio_producto.attr('precioProducto',nuevo_precio );
+
+    const precio_formateado = $.number(cantidad*nuevo_precio,0)
+
+    precio_producto.text(precio_formateado)
+  
+
+    sumarTotalPrecios();
+}
 
 /* nos ayudamos de localstorage para qu se retornen los cambios del boton agregar despues de haber elñiminado */
 $(".tablaProductosVentas").on('draw.dt', function(){ //escucha por cualquie interaccion con la tabla
@@ -305,49 +326,49 @@ $('.btnAgregarProducto').click(function(){
 
 //imprimir le precio del producto seleccionado
 //seleccionar productos para dispositivos
-$('.productosVenta').on('change','select.descripcion_producto',function(){
+// $('.productosVenta').on('change','select.descripcion_producto',function(){
     
-    const precio_producto = $(this).parent().parent().parent().children(".contenido_precio").children().children(".precio_producto")
-    const cantidad_producto =$(this).parent().parent().parent().children(".contenido_cantidad").children(".cantidad_producto")
+//     const precio_producto = $(this).parent().parent().parent().children(".contenido_precio").children().children(".precio_producto")
+//     const cantidad_producto =$(this).parent().parent().parent().children(".contenido_cantidad").children(".cantidad_producto")
 
-    const id_producto_seleccionado  =  $(this).val();
+//     const id_producto_seleccionado  =  $(this).val();
 
-    //console.log(id_producto_seleccionado)
-    const datos = new FormData();
-    datos.append('id', id_producto_seleccionado);
-    $.ajax({
-        url:"ajax/AjaxProductos.php",
-        method:'POST',
-        data:datos,
-        cache:false,
-        contentType:false,
-        processData:false,
-        dataType:"json",
-        success:function(req){
+//     //console.log(id_producto_seleccionado)
+//     const datos = new FormData();
+//     datos.append('id', id_producto_seleccionado);
+//     $.ajax({
+//         url:"ajax/AjaxProductos.php",
+//         method:'POST',
+//         data:datos,
+//         cache:false,
+//         contentType:false,
+//         processData:false,
+//         dataType:"json",
+//         success:function(req){
         
-            $('select.descripcion_producto').attr('des_'+id_producto_seleccionado, req["descripcion"])
-            $(cantidad_producto).attr('stock', req["stock"]);
+//             $('select.descripcion_producto').attr('des_'+id_producto_seleccionado, req["descripcion"])
+//             $(cantidad_producto).attr('stock', req["stock"]);
            
-            $(cantidad_producto).val(1);
-            $(cantidad_producto).attr("stock_actual",req["stock"]-1);
+//             $(cantidad_producto).val(1);
+//             $(cantidad_producto).attr("stock_actual",req["stock"]-1);
         
 
-            $(precio_producto).text(req['precio_venta'])
-            $(precio_producto).attr('precioProducto', req['precio_venta'])
-            $(precio_producto).attr('precioCompra', req['precio_compra'])
+//             $(precio_producto).text(req['precio_venta'])
+//             $(precio_producto).attr('precioProducto', req['precio_venta'])
+//             $(precio_producto).attr('precioCompra', req['precio_compra'])
 
            
-            $('.precio_producto').number(true,2)
-            sumarTotalPrecios();
+//             $('.precio_producto').number(true,2)
+//             sumarTotalPrecios();
          
-        },
-        error:function(error){
-            console.log(error.responseText)
-        }
+//         },
+//         error:function(error){
+//             console.log(error.responseText)
+//         }
 
-    })
+//     })
  
-});
+// });
 
 
 
@@ -381,7 +402,7 @@ $('.productosVenta').on('input', 'input.cantidad_producto', function(){
 
         })
         $(this).val($(this).val()-stock)
-        console.log($(this).parent().parent().children('.contenido_precio').children().children('.precio_producto').text(0))
+        $(this).parent().parent().children('.contenido_precio').children().children('.precio_producto').text(0)
         sumarTotalPrecios();
         // $(this).val(0)
         // console.log($('.productosVenta').find("#precio_producto").val(0));
@@ -449,7 +470,7 @@ function sumarTotalPrecios(){
 
      //$('.precio_producto').number(true,2)
     const precio_producto = $('.precio_producto');
-    
+
 
 
     if(precio_producto.length==0){
@@ -460,9 +481,10 @@ function sumarTotalPrecios(){
     }
    
     precio_producto.each(function(index,producto){
+        
         const precio_producto = parseFloat($(producto).text().replace(/,/g, ''));
       
-   
+     
         arreglo_precios.push(precio_producto)
   
      

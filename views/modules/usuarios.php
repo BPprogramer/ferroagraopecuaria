@@ -75,7 +75,7 @@
         </div>
     </section>
 </div>
-$2a$07$usesomesillystringforeMAbW133JNw7EF9W7MUUeC55x.a4uEmG
+
 <!-- Modal agregar usuario -->
 
 <div id="agregarUsuario" class="modal fade" role="dialog">

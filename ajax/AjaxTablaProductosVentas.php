@@ -39,8 +39,7 @@
                         $botones .= "<button class='btn btn-primary agregarProducto recuperarBoton'  idProducto='".$producto['id']."'>Agregar</button>";
                         $botones .= "</div>";
                         $datoJson.= '[
-                                "'.$i.'",
-                                "'.$imagen.'",
+                            
                                 "'.$producto['descripcion'].'",
                                 "'.$precio.'",
                                 "'.$stock.'",

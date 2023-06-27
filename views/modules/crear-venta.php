@@ -19,7 +19,7 @@
 
     <section class="content">
         <div class="row">
-            <div class="col-md-5 col-12">
+            <div class="col-md-6 col-12">
                 <div class="box box-success">
                     <div class="box-header with-border">
                         <form  method="post" class="formulario_crear" id="formulario" novalidate>
@@ -242,15 +242,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-7 col-12">
+            <div class="col-md-6 col-12">
                 <div class="box box-warning">
                     <div class="box-header with-border">
                         <div class="box-body">
                             <table class="table table-bordered table-striped dt-responsive tablas tablaProductosVentas" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Imagen</th>
+                                       <!--  <th>#</th>
+                                        <th>Imagen</th> -->
                                         <th>Descripción</th>
                                        
                                         <th>Precio</th>
