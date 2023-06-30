@@ -625,6 +625,7 @@ $('#metodo_pago').change(function(){
     $('#correo_cliente').prop('readonly',false)
     $('.contenedor_metodo_pago').empty();
 
+
     //resetear variables
     nombre_cliente = '';
     cedula_cliente = '';

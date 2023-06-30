@@ -213,44 +213,45 @@
                                             </div>
                                         </div> -->
                                         <div class="col-xs-12" style="margin-top:10px">
-                                            <?php if($venta['metodo_pago']=='efectivo'){?>
-                                                <div class="contenedor_metodo_pago row"><!-- auiinsertamos desde jquery egu nel metodo seleccionado -->
-                                                    
-                                                    <div class="col-xs-6 contenedor_valor_efectivo" style="">
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                                                            <input type="text"  value="" class="form-control valor_efectivo" placeholder="cantidad pagar" style="font-size:20px">
+                                            <div class="contenedor_metodo_pago row">
+                                                <?php if($venta['metodo_pago']=='efectivo'){?>
+                                                    <!-- auiinsertamos desde jquery egu nel metodo seleccionado -->
+                                                        
+                                                        <div class="col-xs-6 contenedor_valor_efectivo" style="">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+                                                                <input type="text"  value="" class="form-control valor_efectivo" placeholder="cantidad pagar" style="font-size:20px">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-xs-6 contenedor_cambio_efectivo" style="padding-left:0px ">
-                                                        <div class="input-group">
-                                                            <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                                                            <input type="text" value="" class="form-control cambio_efectivo" placeholder="cambio" readonly style="font-size:20px">
+                                                        <div class="col-xs-6 contenedor_cambio_efectivo" style="padding-left:0px ">
+                                                            <div class="input-group">
+                                                                <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+                                                                <input type="text" value="" class="form-control cambio_efectivo" placeholder="cambio" readonly style="font-size:20px">
+                                                            </div>
                                                         </div>
-                                                    </div>
 
-                                                </div>
-                                            <?php }else{?>
-                                                <div class="col-xs-6 contenedor_valor_abono" style="">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                                                        <input type="text"  value="<?php echo $venta['total']-$venta['deuda']?>" class="form-control valor_abono" placeholder="abono" style="font-size:20px">
                                                     </div>
-                                                
-                                                </div>
-                                                <div class="col-xs-6 contenedor_valor_deuda" style="padding-left:0px ">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                                                        <input type="text" value="<?php echo $venta['deuda']?>" class="form-control valor_deuda" placeholder="deuda" readonly style="font-size:20px">
+                                                <?php }else{?>
+                                                    <div class="col-xs-6 contenedor_valor_abono" style="">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+                                                            <input type="text"  value="<?php echo $venta['total']-$venta['deuda']?>" class="form-control valor_abono" placeholder="abono" style="font-size:20px">
+                                                        </div>
+                                                    
                                                     </div>
-                                                </div>
-                                                <div class="col-xs-6 contenedor_interes  pull-right" style="margin-top:15px">
-                                                    <div class="input-group" style="width:100%">
-                                                        <span class="input-group-addon" style=""><i class="fa fa-percent"></i> Interes</span>
-                                                        <input type="number"  value="<?php echo $venta['interes']?>" class="form-control interes" placeholder="intereses" style="font-size:20px" min="0">
+                                                    <div class="col-xs-6 contenedor_valor_deuda" style="padding-left:0px ">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+                                                            <input type="text" value="<?php echo $venta['deuda']?>" class="form-control valor_deuda" placeholder="deuda" readonly style="font-size:20px">
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            <?php }?>
+                                                    <div class="col-xs-6 contenedor_interes  pull-right" style="margin-top:15px">
+                                                        <div class="input-group" style="width:100%">
+                                                            <span class="input-group-addon" style=""><i class="fa fa-percent"></i> Interes</span>
+                                                            <input type="number"  value="<?php echo $venta['interes']?>" class="form-control interes" placeholder="intereses" style="font-size:20px" min="0">
+                                                        </div>
+                                                    </div>
+                                                <?php }?>
                                         </div>
                                         
                                         <input type="hidden" name="lista_metodo_pago" id="lista_metodo_pago"> <!-- aqui almacenamos el metodo de pago -->
