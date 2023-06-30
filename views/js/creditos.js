@@ -6,7 +6,21 @@ if($('.creditos').length>0){
     let id;
     if($('.tablaCreditos').length>0){
         $(document).ready(function(){
-     
+            
+
+                    //    $.ajax({
+                    //         url:"ajax/AjaxTablaCreditos.php",
+                          
+                       
+                    //         success:function(req){
+                    //             console.log(req)
+                    //         },
+                    //         error:function(error){
+                    //             console.log(error);
+                    //         }
+                    //     })
+                 
+
             $(".tablaCreditos").dataTable().fnDestroy(); //por si me da error de reinicializar
 
             $('.tablaCreditos').DataTable({
@@ -67,10 +81,16 @@ if($('.creditos').length>0){
                     if (result.isConfirmed) {
                         $('#btnPagar').prop('disabled',true);
                         
-                        const valor_pago = $('.contenido_pago_deuda').val()
+                        const valor_pago = $('.contenido_pago_deuda').val();
+                        const deuda_actual =  $('.contenido_deuda').val().replace(/,/g, '');;
+                      
+                  
                         const datos = new FormData();
                         datos.append('id',id)                       
                         datos.append('valor_pago',valor_pago);
+                        datos.append('deuda_actual',deuda_actual);
+                     
+                      
                         $.ajax({
                             url:'ajax/AjaxCreditos.php',
                             method:'POST',
@@ -80,7 +100,7 @@ if($('.creditos').length>0){
                             contentType:false,
                             dataType:'json',
                             success:function(req){
-                                console.log(req)
+                               
                                 if(req=='success'){
                                     Swal.fire({
                                         title: 'Pago Realizado Con exito',
@@ -108,7 +128,7 @@ if($('.creditos').length>0){
                     } 
 
                 })
-            }
+           }
 
 
 
@@ -150,18 +170,21 @@ if($('.creditos').length>0){
     }
 
     function mostrarInfoVenta(info_venta){
+       
         moment.locale('es');
 
         $('.info_venta').empty()
-        const {total, deuda, fecha, vendedor, productos} = info_venta;
+        const {total, deuda,deuda_i, fecha, vendedor, productos} = info_venta;
         const total_venta = total.toLocaleString('en-US', {style: 'currency', currency: 'USD'})
         const total_deuda = deuda.toLocaleString('en-US', {style: 'currency', currency: 'USD'})
-      
+        const total_deuda_i = deuda_i.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
         const fecha_formateada = moment(fecha).locale('en-es').format('D [de] MMMM [del] YYYY');
        
         $('.info_venta').append(`
             <li class="list-group-item text-lg" style="font-size:20px">Total: <strong>${total_venta}</strong></li>
             <li class="list-group-item text-lg" style="font-size:20px">Deuda: <strong>${total_deuda}</strong></li>
+            <li class="list-group-item text-lg" style="font-size:20px">% Interes: <strong>${info_venta['interes']}%</strong></li>
+            <li class="list-group-item text-lg" style="font-size:20px">Deuda + I: <strong>${total_deuda_i}</strong></li>
             <li class="list-group-item text-lg" style="font-size:20px">Fecha: <strong>${fecha_formateada}</strong></li>
             <li class="list-group-item text-lg" style="font-size:20px">Vendedor: <strong>${vendedor}</strong></li>
             <h2 class="text-center">Productos</h2>

@@ -1,5 +1,6 @@
 <?php 
     require_once 'models/Productos.php';
+    require_once 'models/Credito.php';
 ?>
 <div class="content-wrapper">
    
@@ -241,6 +242,12 @@
                                                     <div class="input-group">
                                                         <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
                                                         <input type="text" value="<?php echo $venta['deuda']?>" class="form-control valor_deuda" placeholder="deuda" readonly style="font-size:20px">
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6 contenedor_interes  pull-right" style="margin-top:15px">
+                                                    <div class="input-group" style="width:100%">
+                                                        <span class="input-group-addon" style=""><i class="fa fa-percent"></i> Interes</span>
+                                                        <input type="number"  value="<?php echo $venta['interes']?>" class="form-control interes" placeholder="intereses" style="font-size:20px" min="0">
                                                     </div>
                                                 </div>
                                             <?php }?>

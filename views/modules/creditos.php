@@ -26,6 +26,8 @@
                          
                             <th>Total Compra</th>
                             <th>Deuda</th>
+                            <th>Deuda I</th>
+           
                        
                             <th>Boton de Acciones</th>
                         </tr>
@@ -43,7 +45,7 @@
             <form role="form" class="formulario_guardar_cliente">
                 <div class="modal-header" style="background-color: #3c8dbc; color:white">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Información de La Venta</h4>
+                    <h4 class="modal-title">Información de La Venta a Credito</h4>
                 </div>
                 <div class="modal-body">
                     <ul class="info_venta list-group">

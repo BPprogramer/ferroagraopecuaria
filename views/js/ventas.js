@@ -15,6 +15,7 @@ let id_cliente;
 let id_vendedor;
 let productos;
 let descuento = 0;
+let interes = 0;
 // if($('#formulario_editar').length>0 ){
 //    descuento =  $('#total_pagar').attr('descuento_editar');
 // }else{
@@ -81,7 +82,7 @@ $(document).ready(function(){
                 url:'ajax/AjaxClientes.php',
                 dataType: "json",
                 success:function(req){
-             
+                 
                    req.forEach(cliente =>{
                     if(cliente.id == cliente_seleccionado){
                         $('.clienteCrearVenta').append(`<option selected value='${cliente.id}'>${cliente.nombre}</option>`);
@@ -204,20 +205,21 @@ $(".tablaProductosVentas").on('click', '.agregarProducto', function(){
 //modificar precio de venta
 $(document).on('input', '#precio_producto_unitario',precio_modificado)
 function precio_modificado(){
-    const nuevo_precio = $(this).val()
 
-    $(this).parent().parent().children('.contenido_precio').children().children('.precio_producto')
+    const nuevo_precio = $(this).val() //valor del precio nuevo
+
+    
     const precio_producto = $(this).parent().parent().children('.contenido_precio').children().children('.precio_producto');
-    const cantidad = $(this).parent().parent().children('.contenido_cantidad').children('.cantidad_producto').val();
-    console.log(cantidad)
-    precio_producto.attr('precioProducto',nuevo_precio );
+    const cantidad = $(this).parent().parent().children('.contenido_cantidad').children('.cantidad_producto').val(); //leemos la cantidad
 
-    const precio_formateado = $.number(cantidad*nuevo_precio,0)
+    precio_producto.attr('precioProducto',nuevo_precio ); //agregamos el nuevo precio al atributo de precioProducto para que haga calculos con el nuevo precio
 
-    precio_producto.text(precio_formateado)
+    const precio_formateado = $.number(cantidad*nuevo_precio,0) //formatemos el precio total cantidad * precio
+
+    precio_producto.text(precio_formateado) //msotramos el total
   
 
-    sumarTotalPrecios();
+    sumarTotalPrecios(); 
 }
 
 /* nos ayudamos de localstorage para qu se retornen los cambios del boton agregar despues de haber elñiminado */
@@ -621,6 +623,7 @@ $('#metodo_pago').change(function(){
     $('#telefono_cliente').prop('readonly',false)
     $('#direccion_cliente').prop('readonly',false)
     $('#correo_cliente').prop('readonly',false)
+    $('.contenedor_metodo_pago').empty();
 
     //resetear variables
     nombre_cliente = '';
@@ -663,7 +666,7 @@ $('#metodo_pago').change(function(){
         $('.contenedor_credito').removeClass('hidden')
         $(this).parent().parent().removeClass('col-md-6')
         $(this).parent().parent().addClass('col-md-4')
-        $('.contenedor_metodo_pago').empty();
+        
         $('.contenedor_metodo_pago').append(`
             <div class="col-xs-6 contenedor_valor_abono" style="">
                 <div class="input-group">
@@ -676,6 +679,12 @@ $('#metodo_pago').change(function(){
                 <div class="input-group">
                     <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
                     <input type="text" val="" class="form-control valor_deuda" placeholder="deuda" readonly style="font-size:20px">
+                </div>
+            </div>
+            <div class="col-xs-6 contenedor_interes  pull-right" style="margin-top:15px">
+                <div class="input-group" style="width:100%">
+                    <span class="input-group-addon" style=""><i class="fa fa-percent"></i> Intereses</span>
+                    <input type="number"  val="0" class="form-control interes" placeholder="intereses" style="font-size:20px" min="0">
                 </div>
             </div>
         `)
@@ -771,7 +780,7 @@ $('.clienteCrearVenta').change(function(){
             telefono_cliente = req['telefono'];
             direccion_cliente = req['direccion'];
             correo_cliente = req['correo'];
-            console.log(direccion_cliente)
+   
             $('#nombre_cliente').val(nombre_cliente)
             $('#cedula_cliente').val(cedula_cliente)
             $('#telefono_cliente').val(telefono_cliente)
@@ -856,6 +865,7 @@ function validar_enviar(e){
         const valor_efectivo = $('.valor_efectivo').val();
         const cambio_efectivo = $('.cambio_efectivo').val();
         deuda = 0;
+        interes = 0;
         
         if(valor_efectivo == "" || cambio_efectivo ==""){
            
@@ -870,6 +880,7 @@ function validar_enviar(e){
     
     }
     if(metodo_pago=='credito'){
+        interes = $('.interes').val();
         abono = $('.valor_abono').val();
         deuda = $('.valor_deuda').val();
   
@@ -894,10 +905,7 @@ function validar_enviar(e){
 
 
 function enviarDatos(){
-   $('.btn_crear_venta').prop('disabled',true)
-
-    console.log(total)
-    console.log(deuda)
+ 
 
 
    //console.log(productos)
@@ -906,7 +914,7 @@ function enviarDatos(){
    telefono_cliente = $('#telefono_cliente').val()
    direccion_cliente = $('#direccion_cliente').val()
    correo_cliente = $('#correo_cliente').val()
-   console.log(total)
+
     const datos = new FormData();
     datos.append('codigo',codigo)
     
@@ -927,13 +935,18 @@ function enviarDatos(){
     if(metodo_pago == 'credito'){
         datos.append('id_cliente',id_cliente);
         datos.append('abono',abono)
+        datos.append('interes', interes);
+        
+     
         
     }
+   
+    $('.btn_crear_venta').prop('disabled',true)
     if(window.location.href.indexOf('crear-venta')!==-1){ //zonasoftware.online
    
         const create = 'create';
         datos.append('create',create)
-        console.log('haciendo ajax')
+     
         $.ajax({
             url : "ajax/AjaxVentas.php",
             method: 'POST',
@@ -946,7 +959,7 @@ function enviarDatos(){
                 console.log(req);
                 $('.btn_crear_venta').prop('disabled',false)
                 if(req=='success'){
-                    console.log('entro');
+             
                     
                     Swal.fire({
                         title: 'Compra guardada exitosamente',
@@ -966,13 +979,13 @@ function enviarDatos(){
                 }
             },
             error:function(error){
-                console.log('error')
+             
                 console.log(error.responseText)
             }
     
         })
     }else{ //editar venta
-    
+        
         const id = $('#id_venta_editar').val()
         const update = 'update';
         datos.append('id',id)

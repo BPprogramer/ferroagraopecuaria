@@ -66,7 +66,7 @@
   <link rel="stylesheet" href="views/bower_components/morris.js/morris.css">
 
 
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+
 <!-- <script src="views/plugins/sweetalert2/sweetalert2.all.js"></script> -->
     <script>
         const currentUrl = window.location.href;
@@ -231,5 +231,6 @@ CUERPO DOCUMENTO sidebar-collapse
 
     <script src="views/plugins/jquery_number/jquerynumber.min.js"></script>
     <script src="https://kit.fontawesome.com/a3e5ca3374.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
 </body>
 </html>

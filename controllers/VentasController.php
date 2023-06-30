@@ -3,11 +3,12 @@
     
     //    require_once '../models/Ventas.php';
    
-    require_once __DIR__.'/../vendor/autoload.php';
-    use Mike42\Escpos\Printer;
-    use Mike42\Escpos\EscposImage;
-    use Mike42\Escpos\PrintConnectors\FilePrintConnector;
-    use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+    // require_once __DIR__.'/../vendor/autoload.php';
+    // use Mike42\Escpos\Printer;
+    // use Mike42\Escpos\EscposImage;
+    // use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+    // use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+ 
  
     class VentasController{
 
@@ -29,10 +30,14 @@
                 }
            
             
-            return $respuesta;
+                return $respuesta;
             }else if($orderById == false){
                 
                 $respuesta = Ventas::consultarVenta($tabla, $columna, $valor);
+                if($respuesta['metodo_pago']=='credito'){
+                    $credito = Credito::consultarCredito('codigo_venta', $respuesta['codigo']);
+                    $respuesta['interes'] = $credito['interes'];
+                }
                 
                 return $respuesta;
             }else{
@@ -205,6 +210,7 @@
                     $args['total'] = $_POST['total'];
                     $args['deuda'] = $_POST['deuda'];
                     $args['fecha'] = $_POST['fecha'];
+                    $args['interes'] = $_POST['interes'];
                     $respuesta = $credito->guardarCredito($args);
                     
                     if($respuesta=='error'){
@@ -262,7 +268,7 @@
             if($venta['metodo_pago']=='credito'){ //eliminamos el credito anterior
                 $credito = new Credito();
                 $respuesta = $credito->eliminarCredito('codigo_venta', $venta['codigo']);
-              
+    
                 if($respuesta=='error'){
                     return $error;
                 }
@@ -279,6 +285,7 @@
                 $args['nombre_cliente'] = $cliente['nombre'];
                 $args['total'] = $_POST['total'];
                 $args['deuda'] = $_POST['deuda'];
+                $args['interes'] = $_POST['interes'];
                 $args['fecha'] = $_POST['fecha'];
                 $respuesta = $credito->guardarCredito($args);
                 if($respuesta=='error'){

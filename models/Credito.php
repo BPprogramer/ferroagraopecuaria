@@ -11,7 +11,7 @@
 
         }
         public function guardarCredito($args){
-            $stmt = Conexion::conectarDB()->prepare("INSERT INTO creditos (codigo_venta, id_cliente, nombre_cliente,  total, deuda, fecha_venta) VALUES ( :codigo_venta,  :id_cliente, :nombre_cliente, :total, :deuda, :fecha_venta)");
+            $stmt = Conexion::conectarDB()->prepare("INSERT INTO creditos (codigo_venta, id_cliente, nombre_cliente,  total, deuda,interes, ultimo_pago, fecha_venta) VALUES ( :codigo_venta,  :id_cliente, :nombre_cliente, :total, :deuda, :interes, :ultimo_pago, :fecha_venta)");
             $stmt->bindParam(":codigo_venta", $args['codigo'], PDO::PARAM_STR);
          
             $stmt->bindParam(":id_cliente", $args['id_cliente'], PDO::PARAM_STR);
@@ -21,6 +21,8 @@
     
             $stmt->bindParam(":total", $args['total'], PDO::PARAM_STR);
             $stmt->bindParam(":deuda", $args['deuda'], PDO::PARAM_STR);
+            $stmt->bindParam(":interes", $args['interes'], PDO::PARAM_STR);
+            $stmt->bindParam(":ultimo_pago", $args['fecha'], PDO::PARAM_STR);
    
             $stmt->bindParam(":fecha_venta",$args['fecha'], PDO::PARAM_STR);
  
@@ -32,11 +34,12 @@
             }
           
         }
-        public function editarCredito($columna_1, $valor_1, $columna_2, $valor_2){{
-            $stmt = Conexion::conectarDB()->prepare("UPDATE  creditos SET  $columna_2=:$columna_2 WHERE $columna_1= :$columna_1");
+        public function editarCredito($columna_1, $valor_1, $columna_2, $valor_2, $ultimo_pago){{
+            $stmt = Conexion::conectarDB()->prepare("UPDATE  creditos SET  $columna_2=:$columna_2 , ultimo_pago=:ultimo_pago WHERE $columna_1= :$columna_1");
             $stmt->bindParam(":".$columna_2, $valor_2, PDO::PARAM_STR);
+            $stmt->bindParam(":ultimo_pago", $ultimo_pago, PDO::PARAM_STR);
             $stmt->bindParam(":".$columna_1, $valor_1, PDO::PARAM_STR);
-        
+          
             if($stmt->execute()){
                 return "success";
             }else{
